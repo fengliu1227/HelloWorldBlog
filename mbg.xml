@@ -1,0 +1,23 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="dsql" targetRuntime="MyBatis3DynamicSql">
+<!--        connect to which database-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/testDB?serverTimezone=UTC"
+                        userId="root"
+                        password=""/>
+
+<!--        generate pojo-->
+        <javaModelGenerator targetPackage="com.HelloWorldBlog.bean" targetProject="./src"/>
+
+
+        <javaClientGenerator targetPackage="com.HelloWorldBlog.dao" targetProject="./src" type="XMLMAPPER"/>
+
+        <table tableName="t_user" domainObjectName="User" />
+        <table tableName="t_blog" domainObjectName="Blog" />
+        <table tableName="t_comment" domainObjectName="Comment" />
+        <table tableName="t_module" domainObjectName="Module" />
+    </context>
+</generatorConfiguration>

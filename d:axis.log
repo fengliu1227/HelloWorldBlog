@@ -1,0 +1,12 @@
+2021-05-04 10:20:05,988 0      [           main] INFO  ClassPathXmlApplicationContext  - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6e0e048a: startup date [Tue May 04 10:20:05 EDT 2021]; root of context hierarchy
+2021-05-04 10:20:06,032 44     [           main] INFO  ry.xml.XmlBeanDefinitionReader  - Loading XML bean definitions from class path resource [spring/applicationContext.xml]
+2021-05-04 10:21:25,893 0      [           main] INFO  ClassPathXmlApplicationContext  - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6e0e048a: startup date [Tue May 04 10:21:25 EDT 2021]; root of context hierarchy
+2021-05-04 10:21:25,938 45     [           main] INFO  ry.xml.XmlBeanDefinitionReader  - Loading XML bean definitions from class path resource [spring/applicationContext.xml]
+2021-05-04 10:52:08,670 0      [           main] INFO  ClassPathXmlApplicationContext  - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@47ef968d: startup date [Tue May 04 10:52:08 EDT 2021]; root of context hierarchy
+2021-05-04 10:52:08,711 41     [           main] INFO  ry.xml.XmlBeanDefinitionReader  - Loading XML bean definitions from class path resource [spring/applicationContext.xml]
+2021-05-04 10:52:09,074 404    [           main] INFO         com.mchange.v2.log.MLog  - MLog clients using log4j logging.
+2021-05-04 10:52:09,167 497    [           main] INFO  m.mchange.v2.c3p0.C3P0Registry  - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2021-05-04 10:52:16,436 0      [           main] INFO  ClassPathXmlApplicationContext  - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@3701eaf6: startup date [Tue May 04 10:52:16 EDT 2021]; root of context hierarchy
+2021-05-04 10:52:16,470 34     [           main] INFO  ry.xml.XmlBeanDefinitionReader  - Loading XML bean definitions from class path resource [spring/applicationContext.xml]
+2021-05-04 10:52:16,849 413    [           main] INFO         com.mchange.v2.log.MLog  - MLog clients using log4j logging.
+2021-05-04 10:52:16,984 548    [           main] INFO  m.mchange.v2.c3p0.C3P0Registry  - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
