@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Collection;
 
 @Controller
-public class blogController {
+public class BlogController {
     @Autowired
     BlogService blogService;
     @Autowired

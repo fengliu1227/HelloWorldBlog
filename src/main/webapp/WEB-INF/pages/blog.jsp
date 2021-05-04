@@ -7,15 +7,29 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page isELIgnored="false" %>
 <html>
 <head>
     <title>Title</title>
     <img src="/images/main.jpg"/>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <% pageContext.setAttribute("ctp", request.getContextPath()); %>
 </head>
+<nav>
+    <a href="${ctp}/addItem">Home</a>
+    <a href="${ctp}/login">Login</a>
+
+</nav>
 <body>
-<%pageContext.setAttribute("ctp", request.getContextPath());%>
+<%--<div>--%>
+<%--    <form:form action="${ctp}/addBlog" modelAttribute="blog" method="POST">--%>
+<%--        Name:<form:input path="Title"/><br/>--%>
+<%--        Info:<form:input path="Content"/><br/>--%>
+<%--        <input id="addBlog" type="submit" value="submit"/>--%>
+<%--    </form:form>--%>
+<%--</div>--%>
+
 <c:forEach items="${blogs}" var="item">
     <div>
         <a href="">${item.title}</a>
@@ -30,7 +44,7 @@
 </form>
 <script type="text/javascript">
     $(function(){
-       $(".deleteBtn").click(function(){
+       $(".addBlog ").click(function(){
           $("#deleteForm").attr("action",this.href);
           $("#deleteForm").submit();
           return false;

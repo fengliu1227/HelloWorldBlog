@@ -14,9 +14,9 @@ public class UserServiceImpl implements UserService {
 
 
     public User getById(Integer id){
-        System.out.println("haha ");
-
-//        return userMapper.selectByPrimaryKey(id);
-        return null;
+        return userMapper.selectByPrimaryKey(id);
+    }
+    public void addUser(User user){
+        userMapper.insert(user);
     }
 }
