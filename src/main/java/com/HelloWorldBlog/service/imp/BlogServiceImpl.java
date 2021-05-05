@@ -19,4 +19,9 @@ public class BlogServiceImpl implements BlogService {
     public Collection<Blog> getAll() {
         return blogMapper.selectByExample(new BlogExample());
     }
+
+
+    public Blog getBlogById(Integer id) {
+        return blogMapper.selectByPrimaryKey(id);
+    }
 }

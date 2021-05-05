@@ -18,24 +18,26 @@
 </head>
 <nav>
     <a href="${ctp}/addItem">Home</a>
+    <a href="${ctp}/addBlog">Write Blog</a>
     <a href="${ctp}/login">Login</a>
 
 </nav>
 <body>
-<%--<div>--%>
-<%--    <form:form action="${ctp}/addBlog" modelAttribute="blog" method="POST">--%>
-<%--        Name:<form:input path="Title"/><br/>--%>
-<%--        Info:<form:input path="Content"/><br/>--%>
-<%--        <input id="addBlog" type="submit" value="submit"/>--%>
-<%--    </form:form>--%>
-<%--</div>--%>
+
+
+<div id="addBlog">
+    <form action="${ctp}/addBlog" method="POST">
+        Title:<input type="text" name="title"/><br/>
+        content:<input type="text" name="content"/><br/>
+        <input type="hidden" name="userId"/>
+        <input type="submit" value="submit"/>
+    </form>
+</div>
 
 <c:forEach items="${blogs}" var="item">
     <div>
-        <a href="">${item.title}</a>
-        <p>id: ${item.id}&nbsp;&nbsp;info: ${item.content}&nbsp;&nbsp;price:${item.userId}</p>
-        <a href="${ctp}/menu/${item.id}">edit</a>&nbsp;&nbsp;&nbsp;
-        <a href="${ctp}/menu/${item.id}" class="deleteBtn">delete</a><br/><br/>
+        <a href="${ctp}/blog/${item.id}">${item.title}</a>
+        <p>info: ${item.content}</p>
     </div>
 </c:forEach>
 
@@ -51,7 +53,5 @@
        })
     });
 </script>
-
-<a href="${ctp}/addItem">add new item</a>
 </body>
 </html>

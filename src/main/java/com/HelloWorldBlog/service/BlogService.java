@@ -6,4 +6,5 @@ import java.util.Collection;
 
 public interface BlogService {
     Collection<Blog> getAll();
+    Blog getBlogById(Integer id);
 }
