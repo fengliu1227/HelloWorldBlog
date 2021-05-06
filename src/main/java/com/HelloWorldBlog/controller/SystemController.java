@@ -42,7 +42,6 @@ public class SystemController {
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         userInfo.setStatus(0);
         userInfo.setRole("USER");
-        userInfoService.addUser(userInfo);
 
         // automatically login after registered successfully
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userInfo.getUsername(), password);

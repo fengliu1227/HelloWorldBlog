@@ -17,7 +17,9 @@ public class BlogServiceImpl implements BlogService {
     private BlogMapper blogMapper;
 
     public Collection<Blog> getAll() {
-        return blogMapper.selectByExample(new BlogExample());
+        BlogExample blogExample = new BlogExample();
+        blogExample.setOrderByClause("id desc");
+        return blogMapper.selectByExample(blogExample);
     }
 
 

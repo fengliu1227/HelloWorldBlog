@@ -5,17 +5,18 @@ import com.HelloWorldBlog.bean.Blog;
 import com.HelloWorldBlog.bean.UserInfo;
 import com.HelloWorldBlog.service.BlogService;
 import com.HelloWorldBlog.service.UserInfoService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -27,10 +28,25 @@ public class BlogController {
 
     //home page
     @RequestMapping("/blog")
-    public String getBlogs(Model model){
-        blogService.getAll();
+    public String getBlogs(@RequestParam(value="pn",defaultValue="1")Integer pn, Model model){
+        PageHelper.startPage(pn, 6);
         Collection<Blog> blogs = blogService.getAll();
+        PageInfo pageInfo = new PageInfo((List) blogs, 5);
+//      PageInfo contains a very comprehensive paging property
+//        assertEquals(1, page.getPageNum());
+//        assertEquals(10, page.getPageSize());
+//        assertEquals(1, page.getStartRow());
+//        assertEquals(10, page.getEndRow());
+//        assertEquals(183, page.getTotal());
+//        assertEquals(19, page.getPages());
+//        assertEquals(1, page.getFirstPage());
+//        assertEquals(8, page.getLastPage());
+//        assertEquals(true, page.isFirstPage());
+//        assertEquals(false, page.isLastPage());
+//        assertEquals(false, page.isHasPreviousPage());
+//        assertEquals(true, page.isHasNextPage());
         model.addAttribute("blogs", blogs);
+        model.addAttribute("pageInfo", pageInfo);
         return "blog";
     }
 
@@ -41,8 +57,11 @@ public class BlogController {
         return "detail";
     }
 
-    @RequestMapping("/addBlog")
-    public String addBlog(Blog blog, HttpSession httpSession){
+    //put the data in the response body, if it is an object, put it in JSON
+    @ResponseBody
+    @RequestMapping(value="/addBlog", method=RequestMethod.POST)
+    public Blog addBlog(@RequestBody Blog blog, HttpSession httpSession){
+        System.out.println("blog 方法中   " + blog);
         if(httpSession.getAttribute("userId") != null && httpSession.getAttribute("userName") != null){
             Integer userId = Integer.parseInt(httpSession.getAttribute("userId").toString());
             String userName = httpSession.getAttribute("userName").toString();
@@ -62,6 +81,6 @@ public class BlogController {
             httpSession.setAttribute("userName", userName);
         }
         blogService.insertBlog(blog);
-        return "redirect:/blog";
+        return blog;
     }
 }

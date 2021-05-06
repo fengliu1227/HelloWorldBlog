@@ -27,32 +27,69 @@
 
 <div id="addBlog">
     <form action="${ctp}/addBlog" method="POST">
-        Title:<input type="text" name="title"/><br/>
-        content:<input type="text" name="content"/><br/>
-        <input type="submit" value="submit"/>
+        Title:<input id="add-blog-title" type="text" name="title"/><br/>
+        content:<input id="add-blog-content" type="text" name="content"/><br/>
+        <input id="addBlogBtn" type="submit" value="submit"/>
     </form>
 </div>
 <div id="blogsList">
 <c:forEach items="${blogs}" var="item">
     <div>
-        <a href="${ctp}/blog/${item.id}">${item.title}</a>
+        <a href="${ctp}/blog/${item.id}">${item.title}</a><br/>
         <a href="${ctp}/user/${item.userId}">${item.userName}</a>
         <p>info: ${item.content}</p>
     </div>
 </c:forEach>
 </div>
+<%--page helper--%>
+<a href="${ctp}/blog?pn=1">first</a>
+<a href="${ctp}/blog?pn=${pageInfo.prePage}">Prev</a>
+<c:forEach items="${pageInfo.navigatepageNums}" var="num">
+    <c:if test="${num == pageInfo.pageNum}">
+        [${num}]
+    </c:if>
+    <c:if test="${num != pageInfo.pageNum}">
+        <a href="${ctp}/blog?pn=${num}">${num}</a>
+    </c:if>
+</c:forEach>
+<a href="${ctp}/blog?pn=${pageInfo.nextPage}">Next</a>
+<a href="${ctp}/blog?pn=${pageInfo.pages}">last</a>
 
 <form id="deleteForm" action="${ctp}/menu/${item.id}" method="post">
     <input type="hidden" name="_method" value="delete"/>
 </form>
+<%--id use $ class use .--%>
 <script type="text/javascript">
-    $(function(){
-       $(".addBlog ").click(function(){
-          $("#deleteForm").attr("action",this.href);
-          $("#deleteForm").submit();
-          return false;
-       })
+    function appendBlog(blog) {
+        let title = "<a href=\"${ctp}/blog/" + blog.id + "\">" + blog.title +"</a><br/>";
+        let username = "<a href=\"${ctp}/user/" + blog.userId + "\">" + blog.userName +"</a>";
+        let content = "<p>info:" + blog.content+ "</p>";
+        $("#blogsList").prepend("<div>"+ title + username + content +"</div>");
+    }
+
+    $("#addBlogBtn").click(function(){
+         let blog = {
+            title:$("#add-blog-title").val(),
+            content:$("#add-blog-content").val()
+        }
+        let blogStr = JSON.stringify(blog);
+        $.ajax({
+            url:'${ctp}/addBlog',
+            type:'POST',
+            data:blogStr,
+            dataType:'json',
+            contentType:'application/json',
+            success:function(data){
+                console.log(data);
+                $("#add-blog-title").val('');
+                $("#add-blog-content").val('');
+                appendBlog(data);
+            }
+        });
+        return false;
     });
+
+
 </script>
 </body>
 </html>

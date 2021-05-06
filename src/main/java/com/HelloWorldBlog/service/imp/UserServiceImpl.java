@@ -56,7 +56,6 @@ public class UserServiceImpl implements UserInfoService {
         criteria.andUsernameEqualTo(s);
         List<UserInfo> list = userInfoMapper.selectByExample(example);
         UserInfo userInfo = list.get(0);
-        System.out.println(userInfo);
         User user = new User(userInfo.getUsername(), userInfo.getPassword(), userInfo.getStatus()==0, true, true, true, getAuthority(userInfo.getRole()));
         return user;
     }
