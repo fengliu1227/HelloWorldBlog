@@ -29,17 +29,18 @@
     <form action="${ctp}/addBlog" method="POST">
         Title:<input type="text" name="title"/><br/>
         content:<input type="text" name="content"/><br/>
-        <input type="hidden" name="userId"/>
         <input type="submit" value="submit"/>
     </form>
 </div>
-
+<div id="blogsList">
 <c:forEach items="${blogs}" var="item">
     <div>
         <a href="${ctp}/blog/${item.id}">${item.title}</a>
+        <a href="${ctp}/user/${item.userId}">${item.userName}</a>
         <p>info: ${item.content}</p>
     </div>
 </c:forEach>
+</div>
 
 <form id="deleteForm" action="${ctp}/menu/${item.id}" method="post">
     <input type="hidden" name="_method" value="delete"/>

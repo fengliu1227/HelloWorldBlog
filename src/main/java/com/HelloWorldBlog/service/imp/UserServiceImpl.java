@@ -39,6 +39,15 @@ public class UserServiceImpl implements UserInfoService {
         return list;
     }
 
+    public List<UserInfo> getByUsername(String username) {
+        UserInfoExample example = new UserInfoExample();
+        example.setDistinct(false);
+        UserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        List<UserInfo> list = userInfoMapper.selectByExample(example);
+        return list;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserInfoExample example = new UserInfoExample();

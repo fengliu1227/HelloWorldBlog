@@ -24,4 +24,8 @@ public class BlogServiceImpl implements BlogService {
     public Blog getBlogById(Integer id) {
         return blogMapper.selectByPrimaryKey(id);
     }
+
+    public void insertBlog(Blog blog){
+        blogMapper.insert(blog);
+    }
 }
