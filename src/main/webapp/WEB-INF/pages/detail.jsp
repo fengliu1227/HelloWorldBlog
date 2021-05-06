@@ -11,7 +11,8 @@
     <title>Blog</title>
 </head>
 <body>
-<h3>${blog.title}</h3>
+<h2>${blog.title}</h2>
+<p>${createDateStr}</p>
 <p>${blog.content}</p>
 </body>
 </html>

@@ -15,7 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -58,17 +61,25 @@ public class BlogController {
     }
 
     @RequestMapping(value="/blog/{id}", method= RequestMethod.GET)
-    public String getBlogById(@PathVariable("id") Integer id, Model model){
+    public String getBlogById(@PathVariable("id") Integer id, Model model) {
         Blog blog = blogService.getBlogById(id);
         model.addAttribute("blog", blog);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createDateStr = formatter.format(blog.getCreateTime());
+        model.addAttribute("createDateStr", createDateStr);
         return "detail";
     }
 
     //put the data in the response body, if it is an object, put it in JSON
     @ResponseBody
     @RequestMapping(value="/addBlog", method=RequestMethod.POST)
-    public Blog addBlog(@RequestBody Blog blog, HttpSession httpSession){
+    public Blog addBlog(@RequestBody Blog blog, HttpSession httpSession) throws ParseException {
         System.out.println("blog 方法中   " + blog);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String now = formatter.format(new Date(System.currentTimeMillis()));
+        Date createDate = formatter.parse(now);
+        blog.setCreateTime(createDate);
         if(httpSession.getAttribute("userId") != null && httpSession.getAttribute("userName") != null){
             Integer userId = Integer.parseInt(httpSession.getAttribute("userId").toString());
             String userName = httpSession.getAttribute("userName").toString();

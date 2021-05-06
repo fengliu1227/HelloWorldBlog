@@ -21,10 +21,19 @@
 
 <!--    <mvc:resources mapping="/images/" location="/images/**"/>-->
 
+<!--    <mvc:resources mapping="/css/**" location="/WEB-INF/css/"/>-->
+<!--    <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>-->
+<!--    <mvc:resources mapping="/images/**" location="/images/"/>-->
+<!--    <mvc:resources mapping="/plugin/**" location="/WEB-INF/plugin/"></mvc:resources>-->
+
     <mvc:default-servlet-handler/>
 
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
 
     <!--  converter-->
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    </bean>
+
 
 </beans>

@@ -5,6 +5,9 @@ import com.HelloWorldBlog.service.imp.UserServiceImpl;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class mybatisTest {
 
     @Autowired
@@ -13,15 +16,8 @@ public class mybatisTest {
 
     @Test
     public void test() {
-
-        int a=5;
-        int b=10;
-        swap(a,b);
-        System.out.println(a +" " + b);
-    }
-    static void swap(int a, int b){
-        int temp = a;
-        a= b;
-        b=a;
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(formatter.format(date));
     }
 }

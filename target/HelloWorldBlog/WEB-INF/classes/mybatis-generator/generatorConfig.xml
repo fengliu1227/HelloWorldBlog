@@ -45,8 +45,8 @@
     <!-- 数据表进行生成操作 schema:相当于库名; tableName:表名;
         domainObjectName:对应的DO
     -->
-        <table schema="HelloWorldBlog" tableName="t_userInfo" domainObjectName="UserInfo"/>
-        <table schema="HelloWorldBlog" tableName="t_comment" domainObjectName="Comment"/>
+<!--        <table schema="HelloWorldBlog" tableName="t_userInfo" domainObjectName="UserInfo"/>-->
+<!--        <table schema="HelloWorldBlog" tableName="t_comment" domainObjectName="Comment"/>-->
         <table schema="HelloWorldBlog" tableName="t_blog" domainObjectName="Blog"/>
 </context>
 </generatorConfiguration>

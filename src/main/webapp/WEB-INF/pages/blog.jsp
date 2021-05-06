@@ -8,12 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
 <html>
 <head>
     <title>Title</title>
-    <img src="/images/main.jpg"/>
+    <img src="main.jpg"/>
+    <img src="${pageContext.request.contextPath}/static/images/main.jpg"/>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/date.format.js"></script>
     <% pageContext.setAttribute("ctp", request.getContextPath()); %>
 </head>
 <nav>
@@ -37,6 +40,7 @@
         <a href="${ctp}/blog/${item.id}">${item.title}</a><br/>
         <a href="${ctp}/user/${item.userId}">${item.userName}</a>
         <p>info: ${item.content}</p>
+        <p><fmt:formatDate value="${item.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/></p>
     </div>
 </c:forEach>
 </div>
@@ -63,7 +67,14 @@
         let title = "<a href=\"${ctp}/blog/" + blog.id + "\">" + blog.title +"</a><br/>";
         let username = "<a href=\"${ctp}/user/" + blog.userId + "\">" + blog.userName +"</a>";
         let content = "<p>info:" + blog.content+ "</p>";
-        $("#blogsList").prepend("<div>"+ title + username + content +"</div>");
+
+
+        let myDate= new Date(blog.createTime);
+
+
+        let dateStr = myDate.format('Y-m-d H:i:s');
+        let createTime = "<p>"+ dateStr +"</p>"
+        $("#blogsList").prepend("<div>"+ title + username + content + createTime + "</div>");
     }
 
     $("#addBlogBtn").click(function(){
