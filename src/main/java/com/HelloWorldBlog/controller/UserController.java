@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -48,5 +49,30 @@ public class UserController {
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("comments", comments);
         return "profile";
+    }
+
+    @RequestMapping(value="/user/{id}", method=RequestMethod.GET)
+    public String userDetail(@PathVariable("id")Integer id, Model model, HttpSession httpSession){
+        Integer userId = null;
+        if(httpSession.getAttribute("userId") != null){
+            userId =Integer.parseInt(httpSession.getAttribute("userId").toString());
+        }else {
+            String userName = ((UserDetails) SecurityContextHolder.getContext()
+                    .getAuthentication()
+                    .getPrincipal())
+                    .getUsername();
+            List<UserInfo> list = userInfoService.getByUsername(userName);
+            userId = list.get(0).getId();
+        }
+        if(id.equals(userId)){
+            return "redirect:/user";
+        }
+        UserInfo userInfo = userInfoService.getById(id);
+        List<Comment> comments = commentService.getByUserId(id);
+        List<Blog> blogs = blogService.getByUserId(id);
+        model.addAttribute("blogs", blogs);
+        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("comments", comments);
+        return "userDetail";
     }
 }

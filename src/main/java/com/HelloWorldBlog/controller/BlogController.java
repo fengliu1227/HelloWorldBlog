@@ -68,7 +68,7 @@ public class BlogController {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String createDateStr = formatter.format(blog.getCreateTime());
         model.addAttribute("createDateStr", createDateStr);
-        return "detail";
+        return "blogDetail";
     }
 
     //put the data in the response body, if it is an object, put it in JSON

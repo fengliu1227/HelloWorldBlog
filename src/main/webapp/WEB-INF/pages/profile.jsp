@@ -23,14 +23,14 @@
 <body>
 
 
-<div id="user-information">
+<div id="profile-user-information">
     <ul>
         <li>Username : ${userInfo.username}</li>
         <li>Email: ${userInfo.email}</li>
         <li>Role: ${userInfo.role}</li>
     </ul>
 </div>
-<div id="user-Blogs-List">
+<div id="profile-Blogs-List">
     <c:forEach items="${blogs}" var="item">
         <div>
             <a href="${ctp}/blog/${item.id}">${item.title}</a><br/>
