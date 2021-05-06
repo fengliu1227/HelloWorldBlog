@@ -18,7 +18,6 @@
 </head>
 <nav>
     <a href="${ctp}/addItem">Home</a>
-    <a href="${ctp}/addBlog">Write Blog</a>
     <a href="${ctp}/logout.do">Logout</a>
     <a href="${ctp}/admin">Admin!</a>
 </nav>
@@ -41,6 +40,7 @@
     </div>
 </c:forEach>
 </div>
+<%--page helper--%>
 <a href="${ctp}/blog?pn=1">first</a>
 <a href="${ctp}/blog?pn=${pageInfo.prePage}">Prev</a>
 <c:forEach items="${pageInfo.navigatepageNums}" var="num">
@@ -53,6 +53,7 @@
 </c:forEach>
 <a href="${ctp}/blog?pn=${pageInfo.nextPage}">Next</a>
 <a href="${ctp}/blog?pn=${pageInfo.pages}">last</a>
+
 <form id="deleteForm" action="${ctp}/menu/${item.id}" method="post">
     <input type="hidden" name="_method" value="delete"/>
 </form>
