@@ -1,3 +1,3 @@
 # HelloWordBlog
 
-Maven + Spring + SpringMVC + Mybatis + Spring Security + jQuery + AJAX
+Maven + Spring + SpringMVC + Mybatis + Spring Security + jQuery + AJAX + MyBatis Pagination - PageHelper
