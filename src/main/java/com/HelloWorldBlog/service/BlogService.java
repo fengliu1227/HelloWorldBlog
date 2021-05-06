@@ -2,10 +2,11 @@ package com.HelloWorldBlog.service;
 
 import com.HelloWorldBlog.bean.Blog;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface BlogService {
-    Collection<Blog> getAll();
+    List<Blog> getAll();
+    List<Blog> getByUserId(Integer userId);
     Blog getBlogById(Integer id);
     void insertBlog(Blog blog);
 }

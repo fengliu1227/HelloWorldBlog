@@ -29,5 +29,6 @@
     <mappers>
         <mapper resource="mapper/UserInfoMapper.xml"/>
         <mapper resource="mapper/BlogMapper.xml"/>
+        <mapper resource="mapper/CommentMapper.xml"/>
     </mappers>
 </configuration>

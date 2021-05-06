@@ -17,7 +17,7 @@
     <% pageContext.setAttribute("ctp", request.getContextPath()); %>
 </head>
 <nav>
-    <a href="${ctp}/addItem">Home</a>
+    <a href="${ctp}/user">Profile</a>
     <a href="${ctp}/logout.do">Logout</a>
     <a href="${ctp}/admin">Admin!</a>
 </nav>

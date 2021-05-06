@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -28,7 +27,7 @@ public class BlogController {
 
     //home page
     @RequestMapping("/blog")
-    public String getBlogs(@RequestParam(value="pn",defaultValue="1")Integer pn, Model model){
+    public String getBlogs(@RequestParam(value="pn",defaultValue="1")Integer pn, Model model, HttpSession httpSession){
         PageHelper.startPage(pn, 6);
         Collection<Blog> blogs = blogService.getAll();
         PageInfo pageInfo = new PageInfo((List) blogs, 5);
@@ -47,6 +46,14 @@ public class BlogController {
 //        assertEquals(true, page.isHasNextPage());
         model.addAttribute("blogs", blogs);
         model.addAttribute("pageInfo", pageInfo);
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal())
+                .getUsername();
+        List<UserInfo> list = userInfoService.getByUsername(userName);
+        Integer userId = list.get(0).getId();
+        httpSession.setAttribute("userId", userId);
+        httpSession.setAttribute("userName", userName);
         return "blog";
     }
 
@@ -72,7 +79,6 @@ public class BlogController {
                     .getAuthentication()
                     .getPrincipal())
                     .getUsername();
-            blog.setUserName(userName);
             List<UserInfo> list = userInfoService.getByUsername(userName);
             Integer userId = list.get(0).getId();
             blog.setUserName(userName);
