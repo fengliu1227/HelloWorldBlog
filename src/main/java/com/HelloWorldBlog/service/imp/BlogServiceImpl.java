@@ -38,4 +38,19 @@ public class BlogServiceImpl implements BlogService {
     public void insertBlog(Blog blog){
         blogMapper.insert(blog);
     }
+
+    public Integer getIdByAllOtherInfo(Blog blog){
+        BlogExample example = new BlogExample();
+        example.setDistinct(false);
+        BlogExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(blog.getUserId());
+        criteria.andContentEqualTo(blog.getContent());
+        criteria.andCreateTimeEqualTo(blog.getCreateTime());
+        List<Blog> list = blogMapper.selectByExample(example);
+        if(list.size()==1){
+            return list.get(0).getId();
+        }else{
+            return null;
+        }
+    }
 }

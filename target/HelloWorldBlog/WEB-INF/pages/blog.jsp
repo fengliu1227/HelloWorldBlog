@@ -28,7 +28,7 @@
 
 
 <div id="addBlog">
-    <form action="${ctp}/addBlog" method="POST">
+    <form action="${ctp}/blog" method="POST">
         Title:<input id="add-blog-title" type="text" name="title"/><br/>
         content:<input id="add-blog-content" type="text" name="content"/><br/>
         <input id="addBlogBtn" type="submit" value="submit"/>
@@ -84,13 +84,12 @@
         }
         let blogStr = JSON.stringify(blog);
         $.ajax({
-            url:'${ctp}/addBlog',
+            url:'${ctp}/blog',
             type:'POST',
             data:blogStr,
             dataType:'json',
             contentType:'application/json',
             success:function(data){
-                console.log(data);
                 $("#add-blog-title").val('');
                 $("#add-blog-content").val('');
                 appendBlog(data);

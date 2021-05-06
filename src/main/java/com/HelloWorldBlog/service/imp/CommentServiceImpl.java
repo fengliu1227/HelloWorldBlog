@@ -23,4 +23,17 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> list = commentMapper.selectByExample(example);
         return list;
     }
+
+    public List<Comment> getByBlogId(Integer blogId){
+        CommentExample example = new CommentExample();
+        example.setDistinct(false);
+        CommentExample.Criteria criteria = example.createCriteria();
+        criteria.andBlogIdEqualTo(blogId);
+        List<Comment> list = commentMapper.selectByExample(example);
+        return list;
+    }
+
+    public void insert(Comment comment){
+        commentMapper.insert(comment);
+    }
 }

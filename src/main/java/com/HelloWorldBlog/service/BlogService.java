@@ -9,4 +9,5 @@ public interface BlogService {
     List<Blog> getByUserId(Integer userId);
     Blog getBlogById(Integer id);
     void insertBlog(Blog blog);
+    Integer getIdByAllOtherInfo(Blog blog);
 }

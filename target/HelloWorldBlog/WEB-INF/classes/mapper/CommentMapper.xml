@@ -6,6 +6,8 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="blog_id" jdbcType="INTEGER" property="blogId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="post_time" jdbcType="TIMESTAMP" property="postTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, content, blog_id
+    id, user_id, content, blog_id, user_name, post_time
   </sql>
   <select id="selectByExample" parameterType="com.HelloWorldBlog.bean.CommentExample" resultMap="BaseResultMap">
     select
@@ -100,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.HelloWorldBlog.bean.Comment">
     insert into t_comment (id, user_id, content, 
-      blog_id)
+      blog_id, user_name, post_time
+      )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
-      #{blogId,jdbcType=INTEGER})
+      #{blogId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{postTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.HelloWorldBlog.bean.Comment">
     insert into t_comment
@@ -119,6 +123,12 @@
       <if test="blogId != null">
         blog_id,
       </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="postTime != null">
+        post_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -132,6 +142,12 @@
       </if>
       <if test="blogId != null">
         #{blogId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="postTime != null">
+        #{postTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -156,6 +172,12 @@
       <if test="record.blogId != null">
         blog_id = #{record.blogId,jdbcType=INTEGER},
       </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postTime != null">
+        post_time = #{record.postTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +188,9 @@
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       content = #{record.content,jdbcType=VARCHAR},
-      blog_id = #{record.blogId,jdbcType=INTEGER}
+      blog_id = #{record.blogId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      post_time = #{record.postTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +207,12 @@
       <if test="blogId != null">
         blog_id = #{blogId,jdbcType=INTEGER},
       </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="postTime != null">
+        post_time = #{postTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -190,7 +220,9 @@
     update t_comment
     set user_id = #{userId,jdbcType=INTEGER},
       content = #{content,jdbcType=VARCHAR},
-      blog_id = #{blogId,jdbcType=INTEGER}
+      blog_id = #{blogId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      post_time = #{postTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

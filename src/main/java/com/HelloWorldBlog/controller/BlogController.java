@@ -2,8 +2,10 @@ package com.HelloWorldBlog.controller;
 
 
 import com.HelloWorldBlog.bean.Blog;
+import com.HelloWorldBlog.bean.Comment;
 import com.HelloWorldBlog.bean.UserInfo;
 import com.HelloWorldBlog.service.BlogService;
+import com.HelloWorldBlog.service.CommentService;
 import com.HelloWorldBlog.service.UserInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -27,6 +29,8 @@ public class BlogController {
     BlogService blogService;
     @Autowired
     UserInfoService userInfoService;
+    @Autowired
+    CommentService commentService;
 
     //home page
     @RequestMapping("/blog")
@@ -67,15 +71,18 @@ public class BlogController {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String createDateStr = formatter.format(blog.getCreateTime());
+
+        List<Comment> comments = commentService.getByBlogId(id);
+        model.addAttribute("RelatedComments", comments);
+
         model.addAttribute("createDateStr", createDateStr);
         return "blogDetail";
     }
 
     //put the data in the response body, if it is an object, put it in JSON
     @ResponseBody
-    @RequestMapping(value="/addBlog", method=RequestMethod.POST)
+    @RequestMapping(value="/blog", method=RequestMethod.POST)
     public Blog addBlog(@RequestBody Blog blog, HttpSession httpSession) throws ParseException {
-        System.out.println("blog 方法中   " + blog);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String now = formatter.format(new Date(System.currentTimeMillis()));
         Date createDate = formatter.parse(now);
@@ -98,6 +105,8 @@ public class BlogController {
             httpSession.setAttribute("userName", userName);
         }
         blogService.insertBlog(blog);
+        blog.setId(blogService.getIdByAllOtherInfo(blog));
+
         return blog;
     }
 }
