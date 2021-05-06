@@ -20,7 +20,7 @@
     <a href="${ctp}/addItem">Home</a>
     <a href="${ctp}/addBlog">Write Blog</a>
     <a href="${ctp}/logout.do">Logout</a>
-
+    <a href="${ctp}/admin">Admin!</a>
 </nav>
 <body>
 

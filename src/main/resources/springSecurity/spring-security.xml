@@ -17,31 +17,41 @@
     <security:http auto-config="true" use-expressions="false">
 
 
-        <!-- 配置资料连接，表示任意路径都需要ROLE_USER权限 -->
+        <!-- determined which url needs the user role -->
+        <security:intercept-url pattern="/admin" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
         <security:intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN" />
-        <!-- 自定义登陆页面，login-page 自定义登陆页面 authentication-failure-url 用户权限校验失败之后才会跳转到这个页面，如果数据库中没有这个用户则不会跳转到这个页面。
-            default-target-url 登陆成功后跳转的页面。 注：登陆页面用户名固定 username，密码 password，action:login -->
+
+<!--        login-page: customized login page
+            authentication-failure-url: if failed, direct to that url(if there's no this user in out database, the browser will not redirect)
+            default-target-url: the url showed after login
+            Tips: login page username must be username, password must be password, action: login
+
+-->
         <security:form-login login-page="/login"
                              login-processing-url="/login.do" username-parameter="username"
                              password-parameter="password" authentication-failure-url="/failure"
                              default-target-url="/blog"
         />
-        <!-- 登出， invalidate-session 是否删除session logout-url：登出处理链接 logout-success-url：登出成功页面
-            注：登出操作 只需要链接到 logout即可登出当前用户 -->
+<!--        logout
+            invalidate-session: true => delete session;
+            session logout-url: which url handle logout
+            logout-success-url: after logout forward to that url
+-->
         <security:logout invalidate-session="true" logout-url="/logout.do"
                          logout-success-url="/login" />
-        <!-- 关闭CSRF,默认是开启的 -->
+        <!-- close CSRF, which default value is false-->
         <security:csrf disabled="true" />
     </security:http>
 
-    <!-- 切换成数据库中的用户名和密码 -->
+    <!-- use database -->
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="userService">
-            <!-- 配置加密的方式 -->
+            <!-- encode method -->
             <security:password-encoder ref="passwordEncoder"/>
         </security:authentication-provider>
     </security:authentication-manager>
 
-    <!-- 配置加密类 -->
+    <!-- encode bean -->
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 </beans>
