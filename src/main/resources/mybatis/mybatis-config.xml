@@ -21,7 +21,7 @@
 <!--        </environment>-->
 <!--    </environments>-->
     <mappers>
-        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/UserInfoMapper.xml"/>
         <mapper resource="mapper/BlogMapper.xml"/>
     </mappers>
 </configuration>

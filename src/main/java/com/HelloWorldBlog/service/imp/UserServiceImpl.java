@@ -1,36 +1,60 @@
 package com.HelloWorldBlog.service.imp;
 
-import com.HelloWorldBlog.bean.User;
-import com.HelloWorldBlog.bean.UserExample;
-import com.HelloWorldBlog.dao.UserMapper;
-import com.HelloWorldBlog.service.UserService;
+import com.HelloWorldBlog.bean.UserInfo;
+import com.HelloWorldBlog.bean.UserInfoExample;
+import com.HelloWorldBlog.dao.UserInfoMapper;
+import com.HelloWorldBlog.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserInfoService {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserInfoMapper userInfoMapper;
 
 
 
-    public User getById(Integer id){
-        return userMapper.selectByPrimaryKey(id);
+    public UserInfo getById(Integer id){
+        return userInfoMapper.selectByPrimaryKey(id);
     }
-    public void addUser(User user){
-        userMapper.insert(user);
+    public void addUser(UserInfo userInfo){
+        userInfoMapper.insert(userInfo);
     }
 
-    public List<User> getByEmail(String Email) {
+    public List<UserInfo> getByEmail(String Email) {
 
-        UserExample example = new UserExample();
+        UserInfoExample example = new UserInfoExample();
         example.setDistinct(false);
-        UserExample.Criteria criteria = example.createCriteria();
+        UserInfoExample.Criteria criteria = example.createCriteria();
         criteria.andEmailEqualTo(Email);
-        List<User> list = userMapper.selectByExample(example);
+        List<UserInfo> list = userInfoMapper.selectByExample(example);
+        return list;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        UserInfoExample example = new UserInfoExample();
+        example.setDistinct(false);
+        UserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andUsernameEqualTo(s);
+        List<UserInfo> list = userInfoMapper.selectByExample(example);
+        UserInfo userInfo = list.get(0);
+        System.out.println(userInfo);
+        User user = new User(userInfo.getUsername(), userInfo.getPassword(), userInfo.getStatus()==0, true, true, true, getAuthority(userInfo.getRole()));
+        return user;
+    }
+
+    private List<SimpleGrantedAuthority> getAuthority(String role){
+        List<SimpleGrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority("ROLE_" + role));
         return list;
     }
 }

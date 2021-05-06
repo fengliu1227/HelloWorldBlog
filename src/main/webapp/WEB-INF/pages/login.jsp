@@ -14,17 +14,17 @@
     <% pageContext.setAttribute("ctp", request.getContextPath()); %>
 </head>
 <div id="loginDiv">
-    <form action="${ctp}/login" method="post">
-        Email:<input type="email" name="email"/><br/>
+    <form action="login.do" method="post">
+        Username:<input type="text" name="username"/><br/>
         Password:<input type="password" name="password"/><br/>
         <input id="loginBtn" type="submit" value="Login"/><br/>
         <a href="/login" id="toRegister">Go to Register</a>
     </form>
 </div>
 <div id="registerDiv" hidden>
-    <form:form action="${ctp}/register" modelAttribute="user" method="POST">
-        Email:<form:input path="email"/><br/>
+    <form:form action="${ctp}/register" modelAttribute="userInfo" method="POST">
         UserName:<form:input path="username"/><br/>
+        Email:<form:input path="email"/><br/>
         Password:<form:password path="password"/><br/>
         <input id="registerBtn" type="submit" value="Register"/><br/>
         <a href="/login" id="toLogin">Login</a>

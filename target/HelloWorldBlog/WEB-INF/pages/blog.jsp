@@ -19,7 +19,7 @@
 <nav>
     <a href="${ctp}/addItem">Home</a>
     <a href="${ctp}/addBlog">Write Blog</a>
-    <a href="${ctp}/login">Login</a>
+    <a href="${ctp}/logout.do">Logout</a>
 
 </nav>
 <body>
@@ -53,7 +53,5 @@
        })
     });
 </script>
-
-<a href="${ctp}/addItem">add new item</a>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.HelloWorldBlog.util;
+package com.HelloWorldBlog.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

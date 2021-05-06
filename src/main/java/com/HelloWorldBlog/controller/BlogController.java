@@ -3,7 +3,7 @@ package com.HelloWorldBlog.controller;
 
 import com.HelloWorldBlog.bean.Blog;
 import com.HelloWorldBlog.service.BlogService;
-import com.HelloWorldBlog.service.UserService;
+import com.HelloWorldBlog.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ public class BlogController {
     @Autowired
     BlogService blogService;
     @Autowired
-    UserService userService;
+    UserInfoService userInfoService;
 
     //home page
     @RequestMapping("/blog")
