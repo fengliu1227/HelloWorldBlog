@@ -11,15 +11,12 @@
 <html>
 <head>
     <title>Edit My Blog</title>
+
+    <a href="${ctp}/blog">Home</a>
+    <a href="${ctp}/user">Profile</a>
+    <a href="${ctp}/logout.do">Logout</a>
 </head>
 <body>
-private Integer id;
-private String title;
-private String content;
-private Integer userId;
-private String userName;
-private Date createTime;
-private Date updateTime;
 <form:form action="${ctp}/blog/${blog.id}" modelAttribute="blog" method="post">
     <input type="hidden" name="_method" value="put">
     Title:<form:input path="title" />

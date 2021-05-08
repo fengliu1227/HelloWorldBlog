@@ -9,6 +9,10 @@
 <html>
 <head>
     <title>Title</title>
+
+    <a href="${ctp}/blog">Home</a>
+    <a href="${ctp}/user">Profile</a>
+    <a href="${ctp}/logout.do">Logout</a>
 </head>
 <body>
 ${error}

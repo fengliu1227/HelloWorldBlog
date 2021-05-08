@@ -58,7 +58,7 @@
 <a href="${ctp}/blog?pn=${pageInfo.nextPage}">Next</a>
 <a href="${ctp}/blog?pn=${pageInfo.pages}">last</a>
 
-<form id="deleteForm" action="${ctp}/menu/${item.id}" method="post">
+<form id="deleteForm" action="${ctp}/blog/${item.id}" method="post">
     <input type="hidden" name="_method" value="delete"/>
 </form>
 <%--id use $ class use .--%>

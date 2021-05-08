@@ -14,6 +14,12 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/date.format.js"></script>
     <% pageContext.setAttribute("ctp", request.getContextPath()); %>
+
+    <nav>
+        <a href="${ctp}/blog">Home</a>
+        <a href="${ctp}/user">Profile</a>
+        <a href="${ctp}/logout.do">Logout</a>
+    </nav>
 </head>
 <body>
 <h1>${blog.title}</h1>
@@ -108,19 +114,6 @@
             $("#"+this.id).hide();
             return false;
         });
-    });
-
-    $(".update-comment").click(function() {
-        alert(this.parent().action);
-        $.ajax({
-            url: this.parent().action,
-            type: "POST",
-            data: $("#form-"+this.val()).serialize() +"&_method=Put",
-            success: function (data) {
-                alert(data);
-            }
-        });
-        return false;
     });
 
 

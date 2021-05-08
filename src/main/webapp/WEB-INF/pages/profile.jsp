@@ -41,24 +41,17 @@
         </div>
     </c:forEach>
 </div>
-<%--page helper--%>
-<%--<a href="${ctp}/blog?pn=1">first</a>--%>
-<%--<a href="${ctp}/blog?pn=${pageInfo.prePage}">Prev</a>--%>
-<%--<c:forEach items="${pageInfo.navigatepageNums}" var="num">--%>
-<%--    <c:if test="${num == pageInfo.pageNum}">--%>
-<%--        [${num}]--%>
-<%--    </c:if>--%>
-<%--    <c:if test="${num != pageInfo.pageNum}">--%>
-<%--        <a href="${ctp}/blog?pn=${num}">${num}</a>--%>
-<%--    </c:if>--%>
-<%--</c:forEach>--%>
-<%--<a href="${ctp}/blog?pn=${pageInfo.nextPage}">Next</a>--%>
-<%--<a href="${ctp}/blog?pn=${pageInfo.pages}">last</a>--%>
-
-<%--<form id="deleteForm" action="${ctp}/menu/${item.id}" method="post">--%>
-<%--    <input type="hidden" name="_method" value="delete"/>--%>
-<%--</form>--%>
-<%--id use $ class use .--%>
+========================================================
+<div id="profile-Comments-List">
+    <c:forEach items="${comments}" var="co">
+        <div id="profile-comment-${co.id}">
+            <a href="${ctp}/blog/${co.blogId}">from this blog(click for more info)</a>
+            <p>${co.content}</p>
+            <a href="${ctp}/comment/${co.id}" class="update-comment-in-profile-page" id="${co.id}">update</a>
+            <a href="${ctp}/comment/${co.id}" class="delete-comment-in-profile-page">delete</a>
+        </div>
+    </c:forEach>
+</div>
 <form id="deleteForm" action="${ctp}/blog" method="post">
     <input type="hidden" name="_method" value="delete"/>
 </form>
@@ -99,6 +92,35 @@
         return false;
     });
 
+
+    $(function(){
+        $(".delete-comment-in-profile-page").click(function() {
+            $("#deleteForm").attr("action",this.href);
+            $.ajax({
+                url: this.href,
+                type: "POST",
+                data: $("#deleteForm").serialize() +"&_method=Delete",
+                success: function (data) {
+                    $("#profile-comment-"+ data).remove();
+                }
+            });
+            return false;
+        });
+    });
+
+    $(function(){
+        $(".update-comment-in-profile-page").click(function() {
+            let content = $("#profile-comment-"+this.id + " p").html();
+            let form = "<form action=\"${ctp}/comment/" + this.id +"\" method=\"POST\">\n" +
+                "    <input type=\"hidden\" name=\"_method\" value=\"PUT\"/>\n" +
+                "    content:<input type=\"text\" name=\"content\" value=\"" + content + "\"/><br/>\n" +
+                "    <input class=\"update-comment\" type=\"submit\" value=\"submit\"/>\n" +
+                "</form>"
+            $("#profile-comment-"+this.id).append(form);
+            $("#"+this.id).hide();
+            return false;
+        });
+    });
 
 </script>
 </body>

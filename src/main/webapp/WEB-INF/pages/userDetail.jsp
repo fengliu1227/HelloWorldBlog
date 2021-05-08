@@ -17,8 +17,8 @@
 </head>
 <nav>
     <a href="${ctp}/blog">Home</a>
+    <a href="${ctp}/user">Profile</a>
     <a href="${ctp}/logout.do">Logout</a>
-    <a href="${ctp}/admin">Admin!</a>
 </nav>
 <body>
 
@@ -43,8 +43,7 @@
 <div id="userDetail-comment-List">
     <c:forEach items="${comments}" var="comment">
         <div>
-            <a href="${ctp}/blog/${comment.id}">${comment.content}</a><br/>
-<%--            <a href="${ctp}/user/${comment.userId}">${comment.userName}</a>--%>
+            <a href="${ctp}/comment/${comment.id}">${comment.content}</a><br/>
         </div>
     </c:forEach>
 </div>
