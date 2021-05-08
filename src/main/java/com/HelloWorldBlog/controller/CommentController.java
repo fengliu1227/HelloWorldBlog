@@ -1,5 +1,6 @@
 package com.HelloWorldBlog.controller;
 
+import com.HelloWorldBlog.bean.Blog;
 import com.HelloWorldBlog.bean.Comment;
 import com.HelloWorldBlog.bean.UserInfo;
 import com.HelloWorldBlog.service.CommentService;
@@ -8,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
@@ -54,5 +53,21 @@ public class CommentController {
         comment.setPostTime(createDate);
         commentService.insert(comment);
         return comment;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/comment/{id}", method= RequestMethod.DELETE)
+    public Integer addComment(@PathVariable("id") Integer id) {
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal())
+                .getUsername();
+        Comment comment = commentService.getById(id);
+        if(comment.getUserName().equals(userName)){
+            commentService.deleteById(id);
+            return id;
+        }else{
+            return null;
+        }
     }
 }

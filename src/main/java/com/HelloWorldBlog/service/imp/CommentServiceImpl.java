@@ -36,4 +36,12 @@ public class CommentServiceImpl implements CommentService {
     public void insert(Comment comment){
         commentMapper.insert(comment);
     }
+
+    public void deleteById(Integer id){
+        commentMapper.deleteByPrimaryKey(id);
+    }
+
+    public Comment getById(Integer id){
+        return commentMapper.selectByPrimaryKey(id);
+    }
 }

@@ -36,7 +36,8 @@
             <a href="${ctp}/blog/${item.id}">${item.title}</a><br/>
             <a href="${ctp}/user/${item.userId}">${item.userName}</a>
             <p>info: ${item.content}</p>
-            <a href="${ctp}/editblog/${item.id}">edit</a><br/>
+            <a href="${ctp}/editblog/${item.id}">edit</a>
+            <a href="${ctp}/blog/${item.id}" class="delete-in-profile-page">delete</a><br/>
         </div>
     </c:forEach>
 </div>
@@ -58,7 +59,17 @@
 <%--    <input type="hidden" name="_method" value="delete"/>--%>
 <%--</form>--%>
 <%--id use $ class use .--%>
+<form id="deleteForm" action="${ctp}/blog" method="post">
+    <input type="hidden" name="_method" value="delete"/>
+</form>
 <script type="text/javascript">
+    $(function(){
+        $(".delete-in-profile-page").click(function(){
+            $("#deleteForm").attr("action",this.href);
+            $("#deleteForm").submit();
+            return false;
+        })
+    });
     function appendBlog(blog) {
         let title = "<a href=\"${ctp}/blog/" + blog.id + "\">" + blog.title +"</a><br/>";
         let username = "<a href=\"${ctp}/user/" + blog.userId + "\">" + blog.userName +"</a>";

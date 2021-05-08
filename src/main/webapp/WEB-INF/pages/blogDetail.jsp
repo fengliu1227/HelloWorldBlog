@@ -18,7 +18,7 @@
 <body>
 <h1>${blog.title}</h1>
 <p>Created by ${blog.userName} on ${createDateStr}</p>
-<c:if test="${viewByWriter != null && viewByWriter}">
+<c:if test="${viewer.equals(blog.userName)}">
     <a href="${ctp}/editblog/${blog.id}">edit</a>
     <a href="${ctp}/blog/${blog.id}" id="delete-blog-in-detail-page">delete</a>
 </c:if>
@@ -39,8 +39,14 @@
 <div>
     <dl id="comment-list">
         <c:forEach items="${RelatedComments}" var="co">
-             <dt>${co.content}</dt>
-            <dd>by ${co.userName} Post on <fmt:formatDate value="${co.postTime }" pattern="yyyy-MM-dd HH:mm:ss"/></dd><br/>
+            <div id="comment-${co.id}">
+                <dt>${co.content}</dt>
+                <dd>by ${co.userName} Post on <fmt:formatDate value="${co.postTime }" pattern="yyyy-MM-dd HH:mm:ss"/></dd><br/>
+                <c:if test="${viewer.equals(co.userName)}" >
+                    <a href="${ctp}/comment/${co.id}">update</a>
+                    <a href="${ctp}/comment/${co.id}" class="delete-comment-in-detail-page">delete</a>
+                </c:if>
+            </div>
         </c:forEach>
     </dl>
 </div>
@@ -76,6 +82,19 @@
         $("#deleteForm").submit();
         return false;
     });
+    $(".delete-comment-in-detail-page").click(function() {
+        $("#deleteForm").attr("action",this.href);
+        $.ajax({
+            url: this.href,
+            type: "POST",
+            data: $("#deleteForm").serialize() +"&_method=Delete",
+            success: function (data) {
+                $("#comment-"+ data).remove();
+            }
+        });
+        return false;
+    });
+
 </script>
 </body>
 </html>

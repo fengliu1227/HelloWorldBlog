@@ -79,9 +79,8 @@ public class BlogController {
                 .getAuthentication()
                 .getPrincipal())
                 .getUsername();
-        if(userName.equals(blog.getUserName())){
-            model.addAttribute("viewByWriter", true);
-        }
+        model.addAttribute("viewer", userName);
+
         return "blogDetail";
     }
 
@@ -144,8 +143,18 @@ public class BlogController {
     }
 
     @RequestMapping(value="/blog/{id}", method= RequestMethod.DELETE)
-    public String deleteBlog(@PathVariable("id")Integer id){
-        blogService.deleteById(id);
-        return "redirect:/user";
+    public String deleteBlog(@PathVariable("id")Integer id, Model model){
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal())
+                .getUsername();
+        Blog blog = blogService.getBlogById(id);
+        if(blog.getUserName().equals(userName)){
+            blogService.deleteById(id);
+            return "redirect:/user";
+        }else{
+            model.addAttribute("error", "You don't have permission to do that!!!");
+            return "error";
+        }
     }
 }
