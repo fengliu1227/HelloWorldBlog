@@ -1,5 +1,7 @@
 package com.HelloWorldBlog.service.imp;
 
+import com.HelloWorldBlog.bean.Blog;
+import com.HelloWorldBlog.bean.BlogExample;
 import com.HelloWorldBlog.bean.Comment;
 import com.HelloWorldBlog.bean.CommentExample;
 import com.HelloWorldBlog.dao.CommentMapper;
@@ -43,5 +45,29 @@ public class CommentServiceImpl implements CommentService {
 
     public Comment getById(Integer id){
         return commentMapper.selectByPrimaryKey(id);
+    }
+
+    public Integer getIdByAllOtherInfo(Comment comment){
+        CommentExample example = new CommentExample();
+        example.setDistinct(false);
+        CommentExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(comment.getUserId());
+        criteria.andBlogIdEqualTo(comment.getBlogId());
+        criteria.andContentEqualTo(comment.getContent());
+        criteria.andPostTimeEqualTo(comment.getPostTime());
+        List<Comment> list = commentMapper.selectByExample(example);
+        if(list.size()==1){
+            return list.get(0).getId();
+        }else{
+            return null;
+        }
+    }
+
+    public void updateComment(Integer id, Comment comment){
+        CommentExample example = new CommentExample();
+        example.setDistinct(false);
+        CommentExample.Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(id);
+        commentMapper.updateByExampleSelective(comment, example);
     }
 }

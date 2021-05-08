@@ -52,6 +52,8 @@ public class CommentController {
         Date createDate = formatter.parse(now);
         comment.setPostTime(createDate);
         commentService.insert(comment);
+        Integer id = commentService.getIdByAllOtherInfo(comment);
+        comment.setId(id);
         return comment;
     }
 
@@ -69,5 +71,12 @@ public class CommentController {
         }else{
             return null;
         }
+    }
+
+    @RequestMapping(value="/comment/{id}", method= RequestMethod.PUT)
+    public String updateComment(@PathVariable("id") Integer id, Comment comment) {
+        Integer blogId = commentService.getById(id).getBlogId();
+        commentService.updateComment(id, comment);
+        return "redirect:/blog/"+blogId;
     }
 }

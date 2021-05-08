@@ -1,5 +1,6 @@
 package com.HelloWorldBlog.service;
 
+import com.HelloWorldBlog.bean.Blog;
 import com.HelloWorldBlog.bean.Comment;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface CommentService {
     Comment getById(Integer id);
     void insert(Comment comment);
     void deleteById(Integer id);
+    Integer getIdByAllOtherInfo(Comment comment);
+    void updateComment(Integer id, Comment comment);
 }

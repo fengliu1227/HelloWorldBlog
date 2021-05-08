@@ -43,7 +43,7 @@
                 <dt>${co.content}</dt>
                 <dd>by ${co.userName} Post on <fmt:formatDate value="${co.postTime }" pattern="yyyy-MM-dd HH:mm:ss"/></dd><br/>
                 <c:if test="${viewer.equals(co.userName)}" >
-                    <a href="${ctp}/comment/${co.id}">update</a>
+                    <a href="${ctp}/comment/${co.id}" class="update-comment-in-detail-page" id="${co.id}">update</a>
                     <a href="${ctp}/comment/${co.id}" class="delete-comment-in-detail-page">delete</a>
                 </c:if>
             </div>
@@ -57,7 +57,9 @@
         let dateStr = myDate.format('Y-m-d H:i:s');
         let userName = "<dd> by " + comment.userName + " Post on " + dateStr +  "</dd>";
         let content = "<dt>" + comment.content + "</dt>";
-        $("#comment-list").prepend(content + userName + "<br/>");
+        let btns = "<a href=\"${ctp}/comment/"+ comment.id +"\" class=\"update-comment-in-detail-page\" id=\"" + comment.id + "\">update</a>\n" +
+            "                    <a href=\"${ctp}/comment/"+ comment.id +"\" class=\"delete-comment-in-detail-page\">delete</a>";
+        $("#comment-list").prepend("<div id=\"comment-"+comment.id +"\">"+ content + userName + btns + "<br/>" + "</div>");
     }
     $("#add-comment-btn").click(function(){
         let comment = {
@@ -78,22 +80,49 @@
         });
         return false;
     });
-    $("#delete-blog-in-detail-page").click(function() {
-        $("#deleteForm").submit();
-        return false;
+
+    $(function(){
+        $(".delete-comment-in-detail-page").click(function() {
+            $("#deleteForm").attr("action",this.href);
+            $.ajax({
+                url: this.href,
+                type: "POST",
+                data: $("#deleteForm").serialize() +"&_method=Delete",
+                success: function (data) {
+                    $("#comment-"+ data).remove();
+                }
+            });
+            return false;
+        });
     });
-    $(".delete-comment-in-detail-page").click(function() {
-        $("#deleteForm").attr("action",this.href);
+
+    $(function(){
+        $(".update-comment-in-detail-page").click(function() {
+            let content = $("#comment-"+this.id +" dt").html();
+            let form = "<form action=\"${ctp}/comment/" + this.id +"\" method=\"POST\">\n" +
+                "    <input type=\"hidden\" name=\"_method\" value=\"PUT\"/>\n" +
+                "    content:<input type=\"text\" name=\"content\" value=\"" + content + "\"/><br/>\n" +
+                "    <input class=\"update-comment\" type=\"submit\" value=\"submit\"/>\n" +
+                "</form>"
+            $("#comment-"+this.id).append(form);
+            $("#"+this.id).hide();
+            return false;
+        });
+    });
+
+    $(".update-comment").click(function() {
+        alert(this.parent().action);
         $.ajax({
-            url: this.href,
+            url: this.parent().action,
             type: "POST",
-            data: $("#deleteForm").serialize() +"&_method=Delete",
+            data: $("#form-"+this.val()).serialize() +"&_method=Put",
             success: function (data) {
-                $("#comment-"+ data).remove();
+                alert(data);
             }
         });
         return false;
     });
+
 
 </script>
 </body>
