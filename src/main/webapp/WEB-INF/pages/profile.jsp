@@ -36,6 +36,7 @@
             <a href="${ctp}/blog/${item.id}">${item.title}</a><br/>
             <a href="${ctp}/user/${item.userId}">${item.userName}</a>
             <p>info: ${item.content}</p>
+            <a href="${ctp}/editblog/${item.id}">edit</a><br/>
         </div>
     </c:forEach>
 </div>

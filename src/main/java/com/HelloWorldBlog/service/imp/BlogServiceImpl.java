@@ -53,4 +53,16 @@ public class BlogServiceImpl implements BlogService {
             return null;
         }
     }
+
+    public void updateBlog(Integer id, Blog blog){
+        BlogExample example = new BlogExample();
+        example.setDistinct(false);
+        BlogExample.Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(id);
+        blogMapper.updateByExampleSelective(blog, example);
+    }
+
+    public void deleteById(Integer id){
+        blogMapper.deleteByPrimaryKey(id);
+    }
 }

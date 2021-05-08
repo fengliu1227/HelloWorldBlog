@@ -18,7 +18,15 @@
 <body>
 <h1>${blog.title}</h1>
 <p>Created by ${blog.userName} on ${createDateStr}</p>
+<c:if test="${viewByWriter != null && viewByWriter}">
+    <a href="${ctp}/editblog/${blog.id}">edit</a>
+    <a href="${ctp}/blog/${blog.id}" id="delete-blog-in-detail-page">delete</a>
+</c:if>
 <p>${blog.content}</p>
+
+<form id="deleteForm" action="${ctp}/blog/${blog.id}" method="post">
+    <input type="hidden" name="_method" value="delete"/>
+</form>
 
 <div id="add-comment">
     <form action="${ctp}/comment" method="POST">
@@ -62,6 +70,10 @@
                 appendComment(data);
             }
         });
+        return false;
+    });
+    $("#delete-blog-in-detail-page").click(function() {
+        $("#deleteForm").submit();
         return false;
     });
 </script>

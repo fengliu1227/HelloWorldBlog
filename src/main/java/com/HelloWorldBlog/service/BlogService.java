@@ -10,4 +10,6 @@ public interface BlogService {
     Blog getBlogById(Integer id);
     void insertBlog(Blog blog);
     Integer getIdByAllOtherInfo(Blog blog);
+    void updateBlog(Integer id, Blog blog);
+    void deleteById(Integer id);
 }

@@ -74,8 +74,14 @@ public class BlogController {
 
         List<Comment> comments = commentService.getByBlogId(id);
         model.addAttribute("RelatedComments", comments);
-
         model.addAttribute("createDateStr", createDateStr);
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal())
+                .getUsername();
+        if(userName.equals(blog.getUserName())){
+            model.addAttribute("viewByWriter", true);
+        }
         return "blogDetail";
     }
 
@@ -108,5 +114,38 @@ public class BlogController {
         blog.setId(blogService.getIdByAllOtherInfo(blog));
 
         return blog;
+    }
+
+    @RequestMapping(value="/editblog/{id}", method= RequestMethod.GET)
+    public String editBlog(@PathVariable("id") Integer id, Model model) {
+        Blog blog = blogService.getBlogById(id);
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal())
+                .getUsername();
+        if(blog.getUserName().equals(userName)){
+            model.addAttribute("blog", blog);
+            return "editBlog";
+        }else{
+            model.addAttribute("error", "You don't have permission to do that!!!");
+            return "error";
+        }
+    }
+
+    @RequestMapping(value="/blog/{id}", method= RequestMethod.PUT)
+    public String editSubmit(@PathVariable("id")Integer id, Blog blog) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String now = formatter.format(new Date(System.currentTimeMillis()));
+        Date updateTime = formatter.parse(now);
+        blog.setUpdateTime(updateTime);
+        System.out.println(blog);
+        blogService.updateBlog(id, blog);
+        return "redirect:/blog/"+id;
+    }
+
+    @RequestMapping(value="/blog/{id}", method= RequestMethod.DELETE)
+    public String deleteBlog(@PathVariable("id")Integer id){
+        blogService.deleteById(id);
+        return "redirect:/user";
     }
 }
