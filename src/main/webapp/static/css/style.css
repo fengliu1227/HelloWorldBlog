@@ -1,0 +1,46 @@
+#login-body{
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/login-background.jpg');
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+#loginDiv, #registerDiv{
+    margin:0 auto;
+    margin-top:200px;
+    padding: 20px 50px;
+    width: 400px;
+    height: 300px;
+    border-radius:10px;
+    text-align:center;
+    float: right;
+}
+
+#loginDiv h1, #registerDiv h1{
+    color: #fbc2eb;
+}
+
+.input-text{
+    border: 0;
+    padding: 10px 10px;
+    border-bottom: 1px solid white;
+    margin-top: 15px;
+    background-color: transparent;
+    color: white;
+}
+.input-btn{
+    border: 0;
+    width: 150px;
+    height: 25px;
+    color:black;
+    margin-top: 15px;
+    border-radius: 20px;
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);;
+}
+
+.loginPage-switch{
+    font-size: 18px;
+    color: white;
+    /*text-decoration: none;*/
+}

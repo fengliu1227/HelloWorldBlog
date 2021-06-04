@@ -11,23 +11,28 @@
 <head>
     <title>Welcome to Hello World Blog</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link rel="stylesheet" href="static/css/style.css"/>
+    <link rel="stylesheet" href="static/css/icofont.css"/>
     <% pageContext.setAttribute("ctp", request.getContextPath()); %>
 </head>
+<body id="login-body">
 <div id="loginDiv">
+    <h1>Login</h1>
     <form action="login.do" method="post">
-        Username:<input type="text" name="username"/><br/>
-        Password:<input type="password" name="password"/><br/>
-        <input id="loginBtn" type="submit" value="Login"/><br/>
-        <a href="/login" id="toRegister">Go to Register</a>
+        <input class="input-text" type="text" name="username" placeholder="Username"/><br/>
+        <input class="input-text" type="password"  name="password" placeholder="Password"/><br/>
+        <input id="loginBtn" class="input-btn" type="submit" value="Login"/><br/>
+        <a href="/login" class="loginPage-switch" id="toRegister">Go to Register</a>
     </form>
 </div>
 <div id="registerDiv" hidden>
+    <h1>Register</h1>
     <form:form action="${ctp}/register" modelAttribute="userInfo" method="POST">
-        UserName:<form:input path="username"/><br/>
-        Email:<form:input path="email"/><br/>
-        Password:<form:password path="password"/><br/>
-        <input id="registerBtn" type="submit" value="Register"/><br/>
-        <a href="/login" id="toLogin">Login</a>
+        <form:input class="input-text" path="username" placeholder="Username"/><br/>
+        <form:input class="input-text" path="email" placeholder="Email"/><br/>
+        <form:password class="input-text" path="password" placeholder="Password"/><br/>
+        <input id="registerBtn" class="input-btn" type="submit" value="Register"/><br/>
+        <a href="/login" class="loginPage-switch" id="toLogin">Login</a>
     </form:form>
 </div>
 

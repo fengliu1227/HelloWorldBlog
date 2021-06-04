@@ -13,9 +13,9 @@
 <html>
 <head>
     <title>Title</title>
-    <img src="main.jpg"/>
     <img src="${pageContext.request.contextPath}/static/images/main.jpg"/>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
     <script src="${pageContext.request.contextPath}/static/js/date.format.js"></script>
     <% pageContext.setAttribute("ctp", request.getContextPath()); %>
 </head>
@@ -25,7 +25,6 @@
     <a href="${ctp}/admin">Admin!</a>
 </nav>
 <body>
-
 
 <div id="addBlog">
     <form action="${ctp}/blog" method="POST">
