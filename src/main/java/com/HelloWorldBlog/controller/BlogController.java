@@ -115,6 +115,31 @@ public class BlogController {
         return blog;
     }
 
+    @RequestMapping(value="/blog/search")
+    public String search(@RequestParam(value="pn",defaultValue="1")Integer pn, @RequestParam(value="keyword")String keyword, Model model){
+        PageHelper.startPage(pn, 6);
+        List<Blog> blogs = blogService.search(keyword);
+        PageInfo pageInfo = new PageInfo(blogs, 5);
+        model.addAttribute("blogs", blogs);
+        model.addAttribute("pageInfo", pageInfo);
+        return "blog";
+    }
+
+    @RequestMapping(value="/blog/search-this-user")
+    public String searchThisUser(@RequestParam(value="pn",defaultValue="1")Integer pn, @RequestParam(value="keyword")String keyword, Model model){
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal()).
+                getUsername();
+        List<UserInfo> list = userInfoService.getByUsername(userName);
+        Integer userId = list.get(0).getId();
+        PageHelper.startPage(pn, 6);
+        List<Blog> blogs = blogService.searchThisUser(keyword, userId);
+        PageInfo pageInfo = new PageInfo(blogs, 5);
+        model.addAttribute("blogs", blogs);
+        model.addAttribute("pageInfo", pageInfo);
+        return "searchResult";
+    }
     @RequestMapping(value="/editblog/{id}", method= RequestMethod.GET)
     public String editBlog(@PathVariable("id") Integer id, Model model) {
         Blog blog = blogService.getBlogById(id);

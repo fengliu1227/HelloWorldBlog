@@ -11,11 +11,10 @@
 <head>
     <title>Welcome to Hello World Blog</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <link rel="stylesheet" href="static/css/style.css"/>
-    <link rel="stylesheet" href="static/css/icofont.css"/>
     <% pageContext.setAttribute("ctp", request.getContextPath()); %>
+    <link rel="stylesheet" href="${ctp}/static/css/style.css"/>
 </head>
-<body id="login-body">
+<body class="login-body">
 <div id="loginDiv">
     <h1>Login</h1>
     <form action="login.do" method="post">

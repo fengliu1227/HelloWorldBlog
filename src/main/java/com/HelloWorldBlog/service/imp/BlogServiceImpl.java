@@ -65,4 +65,22 @@ public class BlogServiceImpl implements BlogService {
     public void deleteById(Integer id){
         blogMapper.deleteByPrimaryKey(id);
     }
+
+
+    public List<Blog> search(String keyword){
+        BlogExample example = new BlogExample();
+        example.setDistinct(false);
+        BlogExample.Criteria criteria = example.createCriteria();
+        criteria.andTitleLike("%" + keyword + "%");
+        return blogMapper.selectByExample(example);
+    }
+
+    public List<Blog> searchThisUser(String keyword, Integer id){
+        BlogExample example = new BlogExample();
+        example.setDistinct(false);
+        BlogExample.Criteria criteria = example.createCriteria();
+        criteria.andTitleLike("%" + keyword + "%");
+        criteria.andUserIdEqualTo(id);
+        return blogMapper.selectByExample(example);
+    }
 }

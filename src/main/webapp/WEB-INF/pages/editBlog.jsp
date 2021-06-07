@@ -10,13 +10,14 @@
 <% pageContext.setAttribute("ctp", request.getContextPath()); %>
 <html>
 <head>
+    <link rel="stylesheet" href="${ctp}/static/css/style.css"/>
     <title>Edit My Blog</title>
 
     <a href="${ctp}/blog">Home</a>
     <a href="${ctp}/user">Profile</a>
     <a href="${ctp}/logout.do">Logout</a>
 </head>
-<body>
+<body class="page-body">
 <form:form action="${ctp}/blog/${blog.id}" modelAttribute="blog" method="post">
     <input type="hidden" name="_method" value="put">
     Title:<form:input path="title" />

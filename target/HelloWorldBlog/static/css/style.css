@@ -1,4 +1,4 @@
-#login-body{
+.login-body{
     margin: 0;
     padding: 0;
     background-image: url('../images/login-background.jpg');
@@ -6,8 +6,73 @@
     background-position: center center;
     background-repeat: no-repeat;
 }
-#loginDiv, #registerDiv{
+.page-body{
+    margin: 0;
+    padding: 0;
+    background-color: #e6e9f0;
+}
+.page-h1{
+    color:#6713d2;
+    font-size: 66px;
+}
+
+.page-h2{
+    color: #97d9e1;
+    font-size: 25px;
+}
+.functional-container{
     margin:0 auto;
+    padding: 20px 50px;
+    border-radius:10px;
+    width: 70%;
+    text-align:center;
+    background-color: white;
+}
+.blog-title{
+    font-size: 150%;
+    font-family: bold;
+}
+.blog-username{
+    font-size:80%;
+    font-style:oblique;
+}
+.blog-info{
+    font-size:100%;
+}
+.blog-time{
+    font-size:80%;
+    font-style:oblique;
+}
+.page-container{
+    margin:0 auto;
+    margin-top: 15px;
+    padding: 20px 50px;
+    border-radius:10px;
+    width: 60%;
+    text-align:center;
+    background-color: whitesmoke;
+}
+
+.page-div{
+    margin:0 auto;
+    margin-top: 15px;
+    padding: 20px 50px;
+    border-radius:10px;
+    width: 50%;
+    text-align:left;
+    background-color: white;
+}
+
+.profile-page-container{
+    margin:0 auto;
+    margin-top: 15px;
+    padding: 20px 50px;
+    border-radius:10px;
+    width: 35%;
+    text-align:center;
+    background-color: white;
+}
+#loginDiv, #registerDiv{
     margin-top:200px;
     padding: 20px 50px;
     width: 400px;

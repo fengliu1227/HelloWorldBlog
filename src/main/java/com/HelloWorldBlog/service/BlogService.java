@@ -12,4 +12,6 @@ public interface BlogService {
     Integer getIdByAllOtherInfo(Blog blog);
     void updateBlog(Integer id, Blog blog);
     void deleteById(Integer id);
+    List<Blog> search(String keyword);
+    List<Blog> searchThisUser(String keyword, Integer id);
 }

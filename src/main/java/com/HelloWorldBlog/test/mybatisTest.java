@@ -16,8 +16,7 @@ public class mybatisTest {
 
     @Test
     public void test() {
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(formatter.format(date));
+        blogService = new BlogServiceImpl();
+        System.out.println(blogService.search("garlic"));
     }
 }

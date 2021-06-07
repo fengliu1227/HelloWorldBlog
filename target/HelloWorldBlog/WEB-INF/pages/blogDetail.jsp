@@ -14,6 +14,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/date.format.js"></script>
     <% pageContext.setAttribute("ctp", request.getContextPath()); %>
+    <link rel="stylesheet" href="${ctp}/static/css/style.css"/>
 
     <nav>
         <a href="${ctp}/blog">Home</a>

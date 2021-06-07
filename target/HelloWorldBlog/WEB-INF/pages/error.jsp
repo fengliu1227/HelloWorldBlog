@@ -8,13 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <% pageContext.setAttribute("ctp", request.getContextPath()); %>
+    <link rel="stylesheet" href="${ctp}/static/css/style.css"/>
     <title>Title</title>
 
     <a href="${ctp}/blog">Home</a>
     <a href="${ctp}/user">Profile</a>
     <a href="${ctp}/logout.do">Logout</a>
 </head>
-<body>
+<body class="page-body">
 ${error}
 </body>
 </html>
