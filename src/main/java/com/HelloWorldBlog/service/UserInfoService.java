@@ -1,5 +1,6 @@
 package com.HelloWorldBlog.service;
 
+import com.HelloWorldBlog.bean.Blog;
 import com.HelloWorldBlog.bean.UserInfo;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -10,4 +11,6 @@ public interface UserInfoService extends UserDetailsService {
     void addUser(UserInfo userInfo);
     List<UserInfo> getByEmail(String Email);
     public List<UserInfo> getByUsername(String Email);
+    List<UserInfo> search(String keyword);
+    void changeRole(UserInfo userInfo, Integer id);
 }

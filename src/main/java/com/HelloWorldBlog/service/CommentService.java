@@ -13,4 +13,6 @@ public interface CommentService {
     void deleteById(Integer id);
     Integer getIdByAllOtherInfo(Comment comment);
     void updateComment(Integer id, Comment comment);
+    List<Comment> search(String keyword, Integer id);
+    List<Comment> search(String keyword);
 }

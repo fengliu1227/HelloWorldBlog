@@ -65,4 +65,20 @@ public class UserServiceImpl implements UserInfoService {
         list.add(new SimpleGrantedAuthority("ROLE_" + role));
         return list;
     }
+
+    public List<UserInfo> search(String keyword){
+        UserInfoExample example = new UserInfoExample();
+        example.setDistinct(false);
+        UserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andUsernameLike("%" + keyword + "%");
+        return userInfoMapper.selectByExample(example);
+    }
+
+    public void changeRole(UserInfo userInfo, Integer id){
+        UserInfoExample example = new UserInfoExample();
+        example.setDistinct(false);
+        UserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(id);
+        userInfoMapper.updateByExampleSelective(userInfo, example);
+    }
 }

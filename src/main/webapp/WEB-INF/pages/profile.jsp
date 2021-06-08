@@ -19,11 +19,13 @@
 <nav>
     <a href="${ctp}/blog">Home</a>
     <a href="${ctp}/logout.do">Logout</a>
-    <a href="${ctp}/admin">Admin!</a>
+    <c:if test="${userInfo.role.equals(\"ADMIN\")}">
+        <a href="${ctp}/admin">Admin!</a>
+    </c:if>
 </nav>
 <body class="page-body">
 
-<div class="profile-page-container" id="profile-user-information">
+<div class="functional-container" id="profile-user-information">
     <ul>
         <li>Username : ${userInfo.username}</li>
         <li>Email: ${userInfo.email}</li>
@@ -32,15 +34,17 @@
 </div>
 
 <div class="functional-container">
-    <form action="${ctp}/blog/search-this-user" method="GET">
+    <h2 class="page-h2">Search by keyword: </h2>
+    <form id="profile-search-form" action="${ctp}/blog/search-this-user" method="GET">
         Title:<input type="text" name="keyword"/><br/>
-        <input  type="submit" value="submit"/>
+        <input  type="submit" value="Search Blog"/>
+        <input  id="profile-search-comment-btn" type="submit" value="Search Comment"/>
     </form>
 </div>
 
 <div class="page-container" id="profile-Blogs-List">
     <c:forEach items="${blogs}" var="item">
-        <div class="page-div">
+        <div class="page-div" id="profile-blog-${item.id}">
             <a class="blog-title" href="${ctp}/blog/${item.id}">${item.title}</a><br/>
             <a class="blog-username" href="${ctp}/user/${item.userId}">${item.userName}</a>
             <p class="blog-info">info: ${item.content}</p>
@@ -62,16 +66,19 @@
     <a href="${ctp}/user?pn=${pageInfo.nextPage}">Next</a>
     <a href="${ctp}/user?pn=${pageInfo.pages}">last</a>
 </div>
-========================================================
+
 <div class="page-container" id="profile-Comments-List">
     <<c:forEach items="${comments}" var="co">
-    <div id="profile-comment-${co.id}">
+    <div class="page-div" id="profile-comment-${co.id}">
         <a href="${ctp}/blog/${co.blogId}">from this blog(click for more info)</a>
         <p>${co.content}</p>
         <a href="${ctp}/comment/${co.id}" class="update-comment-in-profile-page" id="${co.id}">update</a>
         <a href="${ctp}/comment/${co.id}" class="delete-comment-in-profile-page">delete</a>
     </div>
 </c:forEach>
+    <c:if test="${viewAll}">
+        <a href="${ctp}/comment/user/${userInfo.id}">View All</a>
+    </c:if>
 </div>
 
 <form id="deleteForm" action="${ctp}/blog" method="post">
@@ -79,41 +86,27 @@
 </form>
 <script type="text/javascript">
     $(function(){
-        $(".delete-in-profile-page").click(function(){
-            $("#deleteForm").attr("action",this.href);
-            $("#deleteForm").submit();
+        $("#profile-search-comment-btn").click(function(){
+            $("#profile-search-form").attr("action","${ctp}/comment/search/${userInfo.id}");
+            $("#profile-search-form").submit();
             return false;
         })
     });
-    function appendBlog(blog) {
-        let title = "<a href=\"${ctp}/blog/" + blog.id + "\">" + blog.title +"</a><br/>";
-        let username = "<a href=\"${ctp}/user/" + blog.userId + "\">" + blog.userName +"</a>";
-        let content = "<p>info:" + blog.content+ "</p>";
-        $("#blogsList").prepend("<div>"+ title + username + content +"</div>");
-    }
 
-    $("#addBlogBtn").click(function(){
-        let blog = {
-            title:$("#add-blog-title").val(),
-            content:$("#add-blog-content").val()
-        }
-        let blogStr = JSON.stringify(blog);
-        $.ajax({
-            url:'${ctp}/addBlog',
-            type:'POST',
-            data:blogStr,
-            dataType:'json',
-            contentType:'application/json',
-            success:function(data){
-                console.log(data);
-                $("#add-blog-title").val('');
-                $("#add-blog-content").val('');
-                appendBlog(data);
-            }
+    $(function(){
+        $(".delete-in-profile-page").click(function() {
+            $("#deleteForm").attr("action",this.href);
+            $.ajax({
+                url: this.href,
+                type: "POST",
+                data: $("#deleteForm").serialize() +"&_method=Delete",
+                success: function (data) {
+                    $("#profile-blog-"+ data).remove();
+                }
+            });
+            return false;
         });
-        return false;
     });
-
 
     $(function(){
         $(".delete-comment-in-profile-page").click(function() {

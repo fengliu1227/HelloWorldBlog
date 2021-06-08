@@ -59,6 +59,7 @@ public class BlogController {
                 .getUsername();
         List<UserInfo> list = userInfoService.getByUsername(userName);
         Integer userId = list.get(0).getId();
+        model.addAttribute("userInfo", list.get(0));
         httpSession.setAttribute("userId", userId);
         httpSession.setAttribute("userName", userName);
         return "blog";
@@ -122,6 +123,13 @@ public class BlogController {
         PageInfo pageInfo = new PageInfo(blogs, 5);
         model.addAttribute("blogs", blogs);
         model.addAttribute("pageInfo", pageInfo);
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal())
+                .getUsername();
+        List<UserInfo> list = userInfoService.getByUsername(userName);
+        Integer userId = list.get(0).getId();
+        model.addAttribute("userInfo", list.get(0));
         return "blog";
     }
 
@@ -140,6 +148,24 @@ public class BlogController {
         model.addAttribute("pageInfo", pageInfo);
         return "searchResult";
     }
+
+    @RequestMapping(value="/blog/search/admin")
+    public String searchByAdmin(@RequestParam(value="pn",defaultValue="1")Integer pn, @RequestParam(value="keyword")String keyword, Model model){
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal()).
+                getUsername();
+        List<UserInfo> list = userInfoService.getByUsername(userName);
+        UserInfo userInfo = list.get(0);
+        PageHelper.startPage(pn, 6);
+        List<Blog> blogs = blogService.search(keyword);
+        PageInfo pageInfo = new PageInfo(blogs, 5);
+        model.addAttribute("blogs", blogs);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("userInfo", userInfo);
+        return "searchResult";
+    }
+
     @RequestMapping(value="/editblog/{id}", method= RequestMethod.GET)
     public String editBlog(@PathVariable("id") Integer id, Model model) {
         Blog blog = blogService.getBlogById(id);
@@ -167,19 +193,21 @@ public class BlogController {
         return "redirect:/blog/"+id;
     }
 
+    @ResponseBody
     @RequestMapping(value="/blog/{id}", method= RequestMethod.DELETE)
-    public String deleteBlog(@PathVariable("id")Integer id, Model model){
+    public Integer deleteBlog(@PathVariable("id")Integer id, Model model){
         String userName = ((UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal())
                 .getUsername();
         Blog blog = blogService.getBlogById(id);
-        if(blog.getUserName().equals(userName)){
+        List<UserInfo> list = userInfoService.getByUsername(userName);
+        UserInfo userInfo = list.get(0);
+        if(blog.getUserName().equals(userName) || userInfo.getRole().equals("ADMIN")){
             blogService.deleteById(id);
-            return "redirect:/user";
+            return id;
         }else{
-            model.addAttribute("error", "You don't have permission to do that!!!");
-            return "error";
+            return null;
         }
     }
 }

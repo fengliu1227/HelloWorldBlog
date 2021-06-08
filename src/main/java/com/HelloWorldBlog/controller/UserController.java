@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -52,15 +53,24 @@ public class UserController {
         List<Blog> blogs = blogService.getByUserId(userId);
         PageInfo pageInfo = new PageInfo(blogs, 5);
         List<Comment> comments = commentService.getByUserId(userId);
+        List<Comment> less = new ArrayList<>();
+        for(int i = 0; i < Math.min(comments.size(), 5); ++i){
+            less.add(comments.get(i));
+        }
+        if(comments.size() > 5){
+            model.addAttribute("viewAll", true);
+        }else{
+            model.addAttribute("viewAll", false);
+        }
         model.addAttribute("pageInfo", pageInfo);
         model.addAttribute("blogs", blogs);
         model.addAttribute("userInfo", userInfo);
-        model.addAttribute("comments", comments);
+        model.addAttribute("comments", less);
         return "profile";
     }
 
     @RequestMapping(value="/user/{id}", method=RequestMethod.GET)
-    public String userDetail(@PathVariable("id")Integer id, Model model, HttpSession httpSession){
+    public String userDetail(@RequestParam(value="pn",defaultValue="1")Integer pn, @PathVariable("id")Integer id, Model model, HttpSession httpSession){
         Integer userId = null;
         if(httpSession.getAttribute("userId") != null){
             userId =Integer.parseInt(httpSession.getAttribute("userId").toString());
@@ -77,10 +87,26 @@ public class UserController {
         }
         UserInfo userInfo = userInfoService.getById(id);
         List<Comment> comments = commentService.getByUserId(id);
+        PageHelper.startPage(pn, 5);
         List<Blog> blogs = blogService.getByUserId(id);
+        PageInfo pageInfo = new PageInfo(blogs, 5);
         model.addAttribute("blogs", blogs);
+        model.addAttribute("pageInfo", pageInfo);
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("comments", comments);
+
+        UserInfo curUser = userInfoService.getById(userId);
+        model.addAttribute("curUser", curUser);
         return "userDetail";
+    }
+
+    @RequestMapping(value="/user/search")
+    public String search(@RequestParam(value="pn",defaultValue="1")Integer pn, @RequestParam(value="keyword")String keyword, Model model){
+        PageHelper.startPage(pn, 6);
+        List<UserInfo> users = userInfoService.search(keyword);
+        PageInfo pageInfo = new PageInfo(users, 5);
+        model.addAttribute("users", users);
+        model.addAttribute("pageInfo", pageInfo);
+        return "userResult";
     }
 }

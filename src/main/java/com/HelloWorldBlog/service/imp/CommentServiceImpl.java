@@ -70,4 +70,21 @@ public class CommentServiceImpl implements CommentService {
         criteria.andIdEqualTo(id);
         commentMapper.updateByExampleSelective(comment, example);
     }
+
+    public List<Comment> search(String keyword, Integer id){
+        CommentExample example = new CommentExample();
+        example.setDistinct(false);
+        CommentExample.Criteria criteria = example.createCriteria();
+        criteria.andContentLike("%" + keyword + "%");
+        criteria.andUserIdEqualTo(id);
+        return commentMapper.selectByExample(example);
+    }
+
+    public List<Comment> search(String keyword){
+        CommentExample example = new CommentExample();
+        example.setDistinct(false);
+        CommentExample.Criteria criteria = example.createCriteria();
+        criteria.andContentLike("%" + keyword + "%");
+        return commentMapper.selectByExample(example);
+    }
 }

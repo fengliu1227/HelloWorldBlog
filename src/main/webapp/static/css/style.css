@@ -22,9 +22,10 @@
 }
 .functional-container{
     margin:0 auto;
+    margin-top: 10px;
     padding: 20px 50px;
     border-radius:10px;
-    width: 70%;
+    width: 60%;
     text-align:center;
     background-color: white;
 }
@@ -53,6 +54,15 @@
     background-color: whitesmoke;
 }
 
+.search-div{
+    margin:0 auto;
+    margin-top: 15px;
+    padding: 20px 50px;
+    border-radius:10px;
+    width: 60%;
+    text-align:left;
+    background-color: white;
+}
 .page-div{
     margin:0 auto;
     margin-top: 15px;
@@ -108,4 +118,8 @@
     font-size: 18px;
     color: white;
     /*text-decoration: none;*/
+}
+
+.back-link{
+    font-size: 30px;
 }

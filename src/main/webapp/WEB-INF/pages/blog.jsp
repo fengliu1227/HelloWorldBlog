@@ -21,7 +21,10 @@
 <nav>
     <a href="${ctp}/user">Profile</a>
     <a href="${ctp}/logout.do">Logout</a>
-    <a href="${ctp}/admin">Admin!</a>
+    <c:if test="${userInfo.role.equals(\"ADMIN\")}">
+        <a href="${ctp}/admin">Admin!</a>
+    </c:if>
+
 </nav>
 <body class="page-body">
 <h1 class="page-h1">Hello World Blog</h1>
@@ -35,9 +38,11 @@
 </div>
 
 <div class="functional-container">
-    <form action="${ctp}/blog/search" method="GET">
+    <h2 class="page-h2">Search Blog by keyword</h2>
+    <form id="blog-search-form" action="${ctp}/blog/search" method="GET">
         Title:<input type="text" name="keyword"/><br/>
-        <input  type="submit" value="submit"/>
+        <input  type="submit" value="Search Blog"/>
+        <input  id="search-user-btn" type="submit" value="Search User"/>
     </form>
 </div>
 
@@ -71,14 +76,20 @@
 </form>
 <%--id use $ class use .--%>
 <script type="text/javascript">
+    $(function(){
+        $("#search-user-btn").click(function(){
+            $("#blog-search-form").attr("action", "${ctp}/user/search");
+            $("#blog-search-form").submit();
+            return false;
+        })
+    });
+
     function appendBlog(blog) {
         let title = "<a href=\"${ctp}/blog/" + blog.id + "\">" + blog.title +"</a><br/>";
         let username = "<a href=\"${ctp}/user/" + blog.userId + "\">" + blog.userName +"</a>";
         let content = "<p>info:" + blog.content+ "</p>";
 
-
         let myDate= new Date(blog.createTime);
-
 
         let dateStr = myDate.format('Y-m-d H:i:s');
         let createTime = "<p>"+ dateStr +"</p>"
@@ -89,6 +100,16 @@
          let blog = {
             title:$("#add-blog-title").val(),
             content:$("#add-blog-content").val()
+        }
+        console.log(22);
+        console.log(blog);
+        if(blog.title == null || !blog.title){
+            alert("Title Must Provided");
+            return false;
+        }
+        if(blog.content == null|| !blog.content){
+            alert("Content Must Provided");
+            return false;
         }
         let blogStr = JSON.stringify(blog);
         $.ajax({

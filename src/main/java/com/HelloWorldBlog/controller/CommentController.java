@@ -5,10 +5,13 @@ import com.HelloWorldBlog.bean.Comment;
 import com.HelloWorldBlog.bean.UserInfo;
 import com.HelloWorldBlog.service.CommentService;
 import com.HelloWorldBlog.service.UserInfoService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,13 +62,15 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping(value="/comment/{id}", method= RequestMethod.DELETE)
-    public Integer addComment(@PathVariable("id") Integer id) {
+    public Integer deleteComment(@PathVariable("id") Integer id) {
         String userName = ((UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal())
                 .getUsername();
+        List<UserInfo> list = userInfoService.getByUsername(userName);
+        UserInfo userInfo = list.get(0);
         Comment comment = commentService.getById(id);
-        if(comment.getUserName().equals(userName)){
+        if(comment.getUserName().equals(userName) || userInfo.getRole().equals("ADMIN")){
             commentService.deleteById(id);
             return id;
         }else{
@@ -78,5 +83,66 @@ public class CommentController {
         Integer blogId = commentService.getById(id).getBlogId();
         commentService.updateComment(id, comment);
         return "redirect:/blog/"+blogId;
+    }
+
+    @RequestMapping(value="/comment/user/{id}", method= RequestMethod.GET)
+    public String getCommentFromUser(@RequestParam(value="pn",defaultValue="1")Integer pn, @PathVariable("id") Integer id, Model model) {
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal())
+                .getUsername();
+        List<UserInfo> list = userInfoService.getByUsername(userName);
+        Integer userId = list.get(0).getId();
+        PageHelper.startPage(pn, 5);
+        List<Comment> comments = commentService.getByUserId(id);
+        PageInfo pageInfo = new PageInfo(comments, 5);
+        model.addAttribute("comments", comments);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("userId", id);
+        if(userId.equals(id)){
+            model.addAttribute("mine", true);
+        }else{
+            model.addAttribute("mine", false);
+        }
+        return "commentResult";
+    }
+
+    @RequestMapping(value="/comment/search/{id}", method= RequestMethod.GET)
+    public String search(@RequestParam(value="pn",defaultValue="1")Integer pn, @PathVariable("id") Integer id, @RequestParam(value="keyword")String keyword, Model model) {
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal())
+                .getUsername();
+        List<UserInfo> list = userInfoService.getByUsername(userName);
+        Integer userId = list.get(0).getId();
+        PageHelper.startPage(pn, 5);
+        List<Comment> comments = commentService.search(keyword, id);
+        PageInfo pageInfo = new PageInfo(comments, 5);
+        model.addAttribute("comments", comments);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("userId", id);
+        if(userId.equals(id)){
+            model.addAttribute("mine", true);
+        }else{
+            model.addAttribute("mine", false);
+        }
+        return "commentResult";
+    }
+
+    @RequestMapping(value="/comment/search/admin", method= RequestMethod.GET)
+    public String searchByAdmin(@RequestParam(value="pn",defaultValue="1")Integer pn,  @RequestParam(value="keyword")String keyword, Model model) {
+        String userName = ((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal())
+                .getUsername();
+        List<UserInfo> list = userInfoService.getByUsername(userName);
+        Integer userId = list.get(0).getId();
+        PageHelper.startPage(pn, 5);
+        List<Comment> comments = commentService.search(keyword);
+        PageInfo pageInfo = new PageInfo(comments, 5);
+        model.addAttribute("comments", comments);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("userInfo", list.get(0));
+        return "commentResult";
     }
 }
