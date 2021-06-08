@@ -88,6 +88,11 @@ Mapper XML files are created by Mybatis Generator.
             |_ web.xml<br/>
       |_ index.jsp<br/>
 ```
+
+Perfected website hierarchy using HTML, AJAX, jQuery, PageHelper plugin and CSS for ease of use and reflecting changes from user update in real time and user friendliness
+
+Managed consistence of code version and process of project through GitHub
+
 ## login page
 ![image](https://github.com/fengliu1227/HelloWorldBlog/blob/master/login.jpg)
 
