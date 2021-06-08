@@ -9,15 +9,17 @@ I designed admin in this system, who can delete the comments and blogs to manage
 
 ## structure
 ### bean
--Blog, BlogExample
--Comment, CommentExample
--UserInfo, UserInfoExample
+-Blog, BlogExample<br/>
+-Comment, CommentExample<br/>
+-UserInfo, UserInfoExample<br/>
 
-dao
-
+### dao
+-BlogMapper<br/>
+-CommentMapper<br/>
+-UserMapper<br/>
 controller
 
-service
+### service
 
 ## backend
 Database designed with MySQL:
