@@ -15,6 +15,7 @@ Database designed with MySQL:
 
 Mapper XML files are created by Mybatis Generator.
 ### Structure
+```bash
 |_ java<br/>
     |_ com.HelloWordBlog<br/>
                   |_ bean<br/>
@@ -53,11 +54,8 @@ Mapper XML files are created by Mybatis Generator.
     |_ springSecurity<br/>
     |_ dbconfig.properties<br/>
     |_ log4j.properties<br/>
+```
 
-#### service
--BlogService ----> BlogServiceImpl<br/>
--CommentService ----> CommentServiceImpl<br/>
--UserInfoService ----> UserInfoServiceImpl<br/>
 ## frontend
 ### Project Structure
 
