@@ -7,7 +7,10 @@ Blog System could create blog to share something interesting, users could talk a
 
 I designed admin in this system, who can delete the comments and blogs to manage the website in a healthy environment, also can block and update the role of other users to admin in the system.
 
+## How to use
 
+Download this .zip file and open with your IDE, configure the Tomcat server, after register just enjoy yourself
+ 
 ## backend
 Database designed with MySQL:
 
