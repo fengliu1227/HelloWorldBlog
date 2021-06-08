@@ -7,19 +7,6 @@ Blog System could create blog to share something interesting, users could talk a
 
 I designed admin in this system, who can delete the comments and blogs to manage the website in a healthy environment, also can block and update the role of other users to admin in the system.
 
-## structure
-### bean
--Blog, BlogExample<br/>
--Comment, CommentExample<br/>
--UserInfo, UserInfoExample<br/>
-
-### dao
--BlogMapper<br/>
--CommentMapper<br/>
--UserMapper<br/>
-controller
-
-### service
 
 ## backend
 Database designed with MySQL:
@@ -27,9 +14,34 @@ Database designed with MySQL:
 ![image](https://github.com/fengliu1227/HelloWorldBlog/blob/master/eer.jpg)
 
 Mapper XML files are created by Mybatis Generator.
+### Structure
+#### bean
+-Blog, BlogExample<br/>
+-Comment, CommentExample<br/>
+-UserInfo, UserInfoExample<br/>
 
+#### dao
+-BlogMapper<br/>
+-CommentMapper<br/>
+-UserMapper<br/>
+controller
 
+#### service
+-BlogService ----> BlogServiceImpl<br/>
+-CommentService ----> CommentServiceImpl<br/>
+-UserInfoService ----> UserInfoServiceImpl<br/>
 ## frontend
+### Project Structure
+
+#### webapp
+      |_ static<br/>
+            |_ js<br/>
+            |_ image<br/>
+            |_ css<br/>
+      |_ WEB-INF<br/>
+            |_ pages(contains all pages)<br/>
+            |_ web.xml<br/>
+      |_ index.jsp<br/>
 ## login page
 ![image](https://github.com/fengliu1227/HelloWorldBlog/blob/master/login.jpg)
 
