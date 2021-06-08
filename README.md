@@ -9,178 +9,174 @@ I designed admin in this system, who can delete the comments and blogs to manage
 
 ## Tree Structure
 .<br/>
-|_target
-| |_generated-sources
-| | |_annotations
-| |_classes
-| | |_dbconfig.properties
-| | |_mybatis
-| | | |_mybatis-config.xml
-| | |_mapper
-| | | |_CommentMapper.xml
-| | | |_BlogMapper.xml
-| | | |_UserInfoMapper.xml
-| | |_springSecurity
-| | | |_spring-security.xml
-| | |_mybatis-generator
-| | | |_generatorConfig.xml
-| | |_com
-| | | |_HelloWorldBlog
-| | | | |_test
-| | | | | |_mybatisTest.class
-| | | | |_bean
-| | | | | |_UserInfoExample$GeneratedCriteria.class
-| | | | | |_BlogExample$Criterion.class
-| | | | | |_BlogExample$Criteria.class
-| | | | | |_UserInfo.class
-| | | | | |_CommentExample.class
-| | | | | |_Blog.class
-| | | | | |_Comment.class
-| | | | | |_BlogExample.class
-| | | | | |_BlogExample$GeneratedCriteria.class
-| | | | | |_UserInfoExample$Criterion.class
-| | | | | |_UserInfoExample.class
-| | | | | |_CommentExample$GeneratedCriteria.class
-| | | | | |_CommentExample$Criterion.class
-| | | | | |_CommentExample$Criteria.class
-| | | | | |_UserInfoExample$Criteria.class
-| | | | |_dao
-| | | | | |_CommentMapper.class
-| | | | | |_UserInfoMapper.class
-| | | | | |_BlogMapper.class
-| | | | |_controller
-| | | | | |_SystemController.class
-| | | | | |_BlogController.class
-| | | | | |_CommentController.class
-| | | | | |_AdminController.class
-| | | | | |_UserController.class
-| | | | |_service
-| | | | | |_UserInfoService.class
-| | | | | |_imp
-| | | | | | |_CommentServiceImpl.class
-| | | | | | |_UserServiceImpl.class
-| | | | | | |_BlogServiceImpl.class
-| | | | | |_BlogService.class
-| | | | | |_CommentService.class
-| | |_log4j.properties
-| | |_spring
-| | | |_applicationContext.xml
-| | |_springmvc
-| | | |_springmvc.xml
-| |_HelloWorldBlog
-| | |_META-INF
-| | | |_MANIFEST.MF
-| | |_static
-| | | |_css
-| | | | |_style.css
-| | | |_images
-| | | | |_login-background.jpg
-| | | |_js
-| | | | |_date.format.js
-| | |_index.jsp
-| | |_WEB-INF
-| | | |_classes
-| | | | |_dbconfig.properties
-| | | | |_mybatis
-| | | | | |_mybatis-config.xml
-| | | | |_mapper
-| | | | | |_CommentMapper.xml
-| | | | | |_BlogMapper.xml
-| | | | | |_UserInfoMapper.xml
-| | | | |_springSecurity
-| | | | | |_spring-security.xml
-| | | | |_mybatis-generator
-| | | | | |_generatorConfig.xml
-| | | | |_com
-| | | | | |_HelloWorldBlog
-| | | | | | |_test
-| | | | | | | |_mybatisTest.class
-| | | | | | |_bean
-| | | | | | | |_UserInfoExample$GeneratedCriteria.class
-| | | | | | | |_BlogExample$Criterion.class
-| | | | | | | |_BlogExample$Criteria.class
-| | | | | | | |_UserInfo.class
-| | | | | | | |_CommentExample.class
-| | | | | | | |_Blog.class
-| | | | | | | |_Comment.class
-| | | | | | | |_BlogExample.class
-| | | | | | | |_BlogExample$GeneratedCriteria.class
-| | | | | | | |_UserInfoExample$Criterion.class
-| | | | | | | |_UserInfoExample.class
-| | | | | | | |_CommentExample$GeneratedCriteria.class
-| | | | | | | |_CommentExample$Criterion.class
-| | | | | | | |_CommentExample$Criteria.class
-| | | | | | | |_UserInfoExample$Criteria.class
-| | | | | | |_dao
-| | | | | | | |_CommentMapper.class
-| | | | | | | |_UserInfoMapper.class
-| | | | | | | |_BlogMapper.class
-| | | | | | |_controller
-| | | | | | | |_SystemController.class
-| | | | | | | |_BlogController.class
-| | | | | | | |_CommentController.class
-| | | | | | | |_AdminController.class
-| | | | | | | |_UserController.class
-| | | | | | |_service
-| | | | | | | |_UserInfoService.class
-| | | | | | | |_imp
-| | | | | | | | |_CommentServiceImpl.class
-| | | | | | | | |_UserServiceImpl.class
-| | | | | | | | |_BlogServiceImpl.class
-| | | | | | | |_BlogService.class
-| | | | | | | |_CommentService.class
-| | | | |_log4j.properties
-| | | | |_spring
-| | | | | |_applicationContext.xml
-| | | | |_springmvc
-| | | | | |_springmvc.xml
-| | | |_lib
-| | | | |_slf4j-api-1.6.6.jar
-| | | | |_c3p0-0.9.2.jar
-| | | | |_mysql-connector-java-8.0.20.jar
-| | | | |_jsqlparser-3.2.jar
-| | | | |_spring-context-5.0.2.RELEASE.jar
-| | | | |_protobuf-java-3.6.1.jar
-| | | | |_mchange-commons-java-0.2.3.4.jar
-| | | | |_spring-web-5.0.2.RELEASE.jar
-| | | | |_jstl-1.2.jar
-| | | | |_mybatis-3.4.1.jar
-| | | | |_junit-4.12.jar
-| | | | |_jackson-core-2.10.0.jar
-| | | | |_spring-expression-5.0.2.RELEASE.jar
-| | | | |_spring-webmvc-5.0.2.RELEASE.jar
-| | | | |_spring-aop-5.0.2.RELEASE.jar
-| | | | |_log4j-1.2.12.jar
-| | | | |_spring-test-5.0.2.RELEASE.jar
-| | | | |_slf4j-log4j12-1.6.6.jar
-| | | | |_spring-security-web-5.0.2.RELEASE.jar
-| | | | |_spring-security-config-5.0.2.RELEASE.jar
-| | | | |_spring-core-5.0.2.RELEASE.jar
-| | | | |_mybatis-spring-1.3.0.jar
-| | | | |_spring-beans-5.0.2.RELEASE.jar
-| | | | |_hamcrest-core-1.3.jar
-| | | | |_spring-jcl-5.0.2.RELEASE.jar
-| | | | |_spring-tx-5.0.2.RELEASE.jar
-| | | | |_spring-security-core-5.0.2.RELEASE.jar
-| | | | |_pagehelper-5.2.0.jar
-| | | | |_spring-jdbc-5.0.2.RELEASE.jar
-| | | | |_aspectjweaver-1.6.8.jar
-| | | | |_jackson-annotations-2.10.0.jar
-| | | | |_jackson-databind-2.10.0.jar
-| | | |_web.xml
-| | | |_pages
-| | | | |_userDetail.jsp
-| | | | |_commentResult.jsp
-| | | | |_editBlog.jsp
-| | | | |_error.jsp
-| | | | |_blog.jsp
-| | | | |_profile.jsp
-| | | | |_adminMain.jsp
-| | | | |_login.jsp
-| | | | |_userResult.jsp
-| | | | |_searchResult.jsp
-| | | | |_blogDetail.jsp
-|_pom.xml
+|_target<br/>
+| |_generated-sources<br/>
+| | |_annotations<br/>
+| |_classes<br/>
+| | |_dbconfig.properties<br/>
+| | |_mybatis<br/>
+| | | |_mybatis-config.xml<br/>
+| | |_mapper<br/>
+| | | |_CommentMapper.xml<br/>
+| | | |_BlogMapper.xml<br/>
+| | | |_UserInfoMapper.xml<br/>
+| | |_springSecurity<br/>
+| | | |_spring-security.xml<br/>
+| | |_mybatis-generator<br/>
+| | | |_generatorConfig.xml<br/>
+| | |_com<br/>
+| | | |_HelloWorldBlog<br/>
+| | | | |_bean<br/>
+| | | | | |_UserInfoExample$GeneratedCriteria.class<br/>
+| | | | | |_BlogExample$Criterion.class<br/>
+| | | | | |_BlogExample$Criteria.class<br/>
+| | | | | |_UserInfo.class<br/>
+| | | | | |_CommentExample.class<br/>
+| | | | | |_Blog.class<br/>
+| | | | | |_Comment.class<br/>
+| | | | | |_BlogExample.class<br/>
+| | | | | |_BlogExample$GeneratedCriteria.class<br/>
+| | | | | |_UserInfoExample$Criterion.class<br/>
+| | | | | |_UserInfoExample.class<br/>
+| | | | | |_CommentExample$GeneratedCriteria.class<br/>
+| | | | | |_CommentExample$Criterion.class<br/><br/>
+| | | | | |_CommentExample$Criteria.class<br/>
+| | | | | |_UserInfoExample$Criteria.class<br/>
+| | | | |_dao<br/>
+| | | | | |_CommentMapper.class<br/>
+| | | | | |_UserInfoMapper.class<br/>
+| | | | | |_BlogMapper.class<br/>
+| | | | |_controller<br/>
+| | | | | |_SystemController.class<br/>
+| | | | | |_BlogController.class<br/>
+| | | | | |_CommentController.class<br/>
+| | | | | |_AdminController.class<br/>
+| | | | | |_UserController.class<br/>
+| | | | |_service<br/>
+| | | | | |_UserInfoService.class<br/>
+| | | | | |_imp<br/>
+| | | | | | |_CommentServiceImpl.class<br/>
+| | | | | | |_UserServiceImpl.class<br/>
+| | | | | | |_BlogServiceImpl.class<br/>
+| | | | | |_BlogService.class<br/>
+| | | | | |_CommentService.class<br/>
+| | |_log4j.properties<br/>
+| | |_spring<br/>
+| | | |_applicationContext.xml<br/>
+| | |_springmvc<br/>
+| | | |_springmvc.xml<br/>
+| |_HelloWorldBlog<br/>
+| | |_META-INF<br/>
+| | | |_MANIFEST.MF<br/>
+| | |_static<br/>
+| | | |_css<br/>
+| | | | |_style.css<br/>
+| | | |_images<br/>
+| | | | |_login-background.jpg<br/>
+| | | |_js<br/>
+| | | | |_date.format.js<br/>
+| | |_index.jsp<br/>
+| | |_WEB-INF<br/>
+| | | |_classes<br/>
+| | | | |_dbconfig.properties<br/>
+| | | | |_mybatis<br/>
+| | | | | |_mybatis-config.xml<br/>
+| | | | |_mapper<br/>
+| | | | | |_CommentMapper.xml<br/>
+| | | | | |_BlogMapper.xml<br/>
+| | | | | |_UserInfoMapper.xml<br/>
+| | | | |_springSecurity<br/>
+| | | | | |_spring-security.xml<br/>
+| | | | |_mybatis-generator<br/>
+| | | | | |_generatorConfig.xml<br/><br/>
+| | | | |_com<br/>
+| | | | | |_HelloWorldBlog<br/>
+| | | | | | |_bean<br/>
+| | | | | | | |_UserInfoExample$GeneratedCriteria.class<br/>
+| | | | | | | |_BlogExample$Criterion.class<br/>
+| | | | | | | |_BlogExample$Criteria.class<br/>
+| | | | | | | |_UserInfo.class<br/>
+| | | | | | | |_CommentExample.class<br/>
+| | | | | | | |_Blog.class<br/>
+| | | | | | | |_Comment.class<br/>
+| | | | | | | |_BlogExample.class<br/>
+| | | | | | | |_BlogExample$GeneratedCriteria.class<br/>
+| | | | | | | |_UserInfoExample$Criterion.class<br/>
+| | | | | | | |_UserInfoExample.class<br/>
+| | | | | | | |_CommentExample$GeneratedCriteria.class<br/>
+| | | | | | | |_CommentExample$Criterion.class<br/>
+| | | | | | | |_CommentExample$Criteria.class<br/>
+| | | | | | | |_UserInfoExample$Criteria.class<br/>
+| | | | | | |_dao<br/>
+| | | | | | | |_CommentMapper.class<br/>
+| | | | | | | |_UserInfoMapper.class<br/>
+| | | | | | | |_BlogMapper.class<br/>
+| | | | | | |_controller<br/>
+| | | | | | | |_SystemController.class<br/>
+| | | | | | | |_BlogController.class<br/>
+| | | | | | | |_CommentController.class<br/>
+| | | | | | | |_AdminController.class<br/>
+| | | | | | | |_UserController.class<br/>
+| | | | | | |_service<br/>
+| | | | | | | |_UserInfoService.class<br/>
+| | | | | | | |_imp<br/>
+| | | | | | | | |_CommentServiceImpl.class<br/>
+| | | | | | | | |_UserServiceImpl.class<br/>
+| | | | | | | | |_BlogServiceImpl.class<br/>
+| | | | | | | |_BlogService.class<br/>
+| | | | | | | |_CommentService.class<br/>
+| | | | |_log4j.properties<br/>
+| | | | |_spring<br/>
+| | | | | |_applicationContext.xml<br/>
+| | | | |_springmvc<br/>
+| | | | | |_springmvc.xml<br/>
+| | | |_lib<br/>
+| | | | |_slf4j-api-1.6.6.jar<br/>
+| | | | |_c3p0-0.9.2.jar<br/>
+| | | | |_mysql-connector-java-8.0.20.jar<br/>
+| | | | |_jsqlparser-3.2.jar<br/>
+| | | | |_spring-context-5.0.2.RELEASE.jar<br/>
+| | | | |_protobuf-java-3.6.1.jar<br/>
+| | | | |_mchange-commons-java-0.2.3.4.jar<br/>
+| | | | |_spring-web-5.0.2.RELEASE.jar<br/>
+| | | | |_jstl-1.2.jar<br/>
+| | | | |_mybatis-3.4.1.jar<br/>
+| | | | |_junit-4.12.jar<br/>
+| | | | |_jackson-core-2.10.0.jar<br/>
+| | | | |_spring-expression-5.0.2.RELEASE.jar<br/>
+| | | | |_spring-webmvc-5.0.2.RELEASE.jar<br/>
+| | | | |_spring-aop-5.0.2.RELEASE.jar<br/>
+| | | | |_log4j-1.2.12.jar<br/>
+| | | | |_spring-test-5.0.2.RELEASE.jar<br/>
+| | | | |_slf4j-log4j12-1.6.6.jar<br/>
+| | | | |_spring-security-web-5.0.2.RELEASE.jar<br/>
+| | | | |_spring-security-config-5.0.2.RELEASE.jar<br/>
+| | | | |_spring-core-5.0.2.RELEASE.jar<br/>
+| | | | |_mybatis-spring-1.3.0.jar<br/>
+| | | | |_spring-beans-5.0.2.RELEASE.jar<br/>
+| | | | |_hamcrest-core-1.3.jar<br/>
+| | | | |_spring-jcl-5.0.2.RELEASE.jar<br/>
+| | | | |_spring-tx-5.0.2.RELEASE.jar<br/>
+| | | | |_spring-security-core-5.0.2.RELEASE.jar<br/>
+| | | | |_pagehelper-5.2.0.jar<br/>
+| | | | |_spring-jdbc-5.0.2.RELEASE.jar<br/>
+| | | | |_aspectjweaver-1.6.8.jar<br/>
+| | | | |_jackson-annotations-2.10.0.jar<br/>
+| | | | |_jackson-databind-2.10.0.jar<br/>
+| | | |_web.xml<br/>
+| | | |_pages<br/>
+| | | | |_userDetail.jsp<br/>
+| | | | |_commentResult.jsp<br/>
+| | | | |_editBlog.jsp<br/>
+| | | | |_error.jsp<br/>
+| | | | |_blog.jsp<br/>
+| | | | |_profile.jsp<br/>
+| | | | |_adminMain.jsp<br/>
+| | | | |_login.jsp<br/>
+| | | | |_userResult.jsp<br/>
+| | | | |_searchResult.jsp<br/>
+| | | | |_blogDetail.jsp<br/>
+|_pom.xml<br/>
 
 ## backend
 Database designed with MySQL:
