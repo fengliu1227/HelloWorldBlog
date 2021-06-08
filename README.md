@@ -15,16 +15,44 @@ Database designed with MySQL:
 
 Mapper XML files are created by Mybatis Generator.
 ### Structure
-#### bean
--Blog, BlogExample<br/>
--Comment, CommentExample<br/>
--UserInfo, UserInfoExample<br/>
-
-#### dao
--BlogMapper<br/>
--CommentMapper<br/>
--UserMapper<br/>
-controller
+|_ java<br/>
+    |_ com.HelloWordBlog<br/>
+                  |_ bean<br/>
+                        |_ static<br/>
+                        |_ Blog<br/>
+                        |_ BlogExample<br/>
+                        |_ Comment<br/>
+                        |_ CommentExample<br/>
+                        |_ UserInfo<br/>
+                        |_ UserInfoExample<br/>
+                   |_ dao<br/>
+                        |_ static<br/>
+                        |_ BlogMapper<br/>
+                        |_ CommentMapper<br/>
+                        |_ UserMapper<br/>
+                   |_ controller<br/>
+                        |_ AdminController<br/>
+                        |_ UserController<br/>
+                        |_ BlogController<br/>
+                        |_ CommentController<br/>
+                        |_ SystemController<br/>
+                   |_ service<br/>
+                        |_ UserInfoService<br/>
+                        |_ BlogService<br/>
+                        |_ CommentService<br/>
+                        |_ imp<br/>
+                              |_ UserInfoServiceImpl<br/>
+                              |_ BlogServiceImpl<br/>
+                              |_ CommentServiceImpl<br/>
+|_ sources<br/>
+    |_ mapper<br/>
+    |_ mybatis<br/>
+    |_ mybatis-generator<br/>
+    |_ spring<br/>
+    |_ springmvc<br/>
+    |_ springSecurity<br/>
+    |_ dbconfig.properties<br/>
+    |_ log4j.properties<br/>
 
 #### service
 -BlogService ----> BlogServiceImpl<br/>
@@ -34,6 +62,7 @@ controller
 ### Project Structure
 
 #### webapp
+     webapp<br/>
       |_ static<br/>
             |_ js<br/>
             |_ image<br/>
