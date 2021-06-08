@@ -10,10 +10,11 @@ I designed admin in this system, who can delete the comments and blogs to manage
 
 ## backend
 Database designed with MySQL:
-t_blog
-t_comment
-t_user
+![image](https://github.com/fengliu1227/HelloWorldBlog/blob/master/eer.jpg)
+
 Mapper XML files are created by Mybatis Generator.
+
+
 ## frontend
 ## login page
 ![image](https://github.com/fengliu1227/HelloWorldBlog/blob/master/login.jpg)
