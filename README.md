@@ -99,5 +99,3 @@ Managed consistence of code version and process of project through GitHub
 ## login page
 ![image](https://github.com/fengliu1227/HelloWorldBlog/blob/master/login.jpg)
 
-
-## Still updating for the frontend view and some function to enhance user friendliness.
